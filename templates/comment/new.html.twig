@@ -1,2 +1,14 @@
+{% extends "base.html.twig" %}
 {# templates/comment/new.html.twig #}
-{{ form(form) }}
+
+
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block body %}
+    {{ form(form) }}
+{% endblock %}

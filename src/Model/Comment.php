@@ -24,4 +24,14 @@ class Comment implements CommentInterface
     public function getStatus(): ?string {}
 
     public function setStatus(string $status): void {}
+
+    // public static function loadValidatorMetadata(ClassMetadata $metadata)
+    // {
+    //     $metadata->addPropertyConstraint('title', 
+    //         new NotBlank(),
+    //         new Length(['min' => 4])
+    //     );
+    //     $metadata->addPropertyConstraint('content', new NotBlank());
+    // }
+    
 }
