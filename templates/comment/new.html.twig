@@ -1,14 +1,13 @@
-{% extends "base.html.twig" %}
 {# templates/comment/new.html.twig #}
+{% extends "base.html.twig" %}
 
-
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 {% block title %}Index{% endblock %}
 {% block head %}
     {{ parent() }}
-    <style type="text/css">
-        .important { color: #336699; }
-    </style>
 {% endblock %}
 {% block body %}
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {# ... #}
+    {{ form_end(form) }}
 {% endblock %}

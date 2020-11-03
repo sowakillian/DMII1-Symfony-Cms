@@ -3,6 +3,7 @@ namespace App\Form\Type;
 
 use App\Model\Comment;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,7 +16,7 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('content', TextType::class)
+            ->add('content', TextAreaType::class)
             ->add('save', SubmitType::class)
         ;
     }

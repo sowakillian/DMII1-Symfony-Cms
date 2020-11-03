@@ -18,6 +18,8 @@ class Comment implements CommentInterface
     protected $title;
     protected $content;
 
+    protected $status = CommentInterface::STATUS_WAITING;
+
     public function getTitle()
     {
         return $this->title;

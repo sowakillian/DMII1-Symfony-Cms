@@ -31,12 +31,6 @@ class CommentController extends AbstractController
             // but, the original `$task` variable has also been updated
             $comment = $form->getData();
     
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($task);
-            // $entityManager->flush();
-    
             return $this->redirectToRoute('comment_validated');
         }
 
