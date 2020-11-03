@@ -2,6 +2,12 @@
 
 namespace App\Model;
 
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Class Comment
  *
@@ -9,29 +15,36 @@ namespace App\Model;
  */
 class Comment implements CommentInterface
 {
-    public function getContent(): ?string {
-        return 'titi';
+    protected $title;
+    protected $content;
+
+    public function getTitle()
+    {
+        return $this->title;
     }
 
-    public function setContent(?string $content): void {}
-
-    public function getTitle(): ?string {
-        return 'toto';
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
-    public function setTitle(?string $title) {}
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent($content): void
+    {
+        $this->content = $content;
+    }
 
     public function getStatus(): ?string {}
 
     public function setStatus(string $status): void {}
 
-    // public static function loadValidatorMetadata(ClassMetadata $metadata)
-    // {
-    //     $metadata->addPropertyConstraint('title', 
-    //         new NotBlank(),
-    //         new Length(['min' => 4])
-    //     );
-    //     $metadata->addPropertyConstraint('content', new NotBlank());
-    // }
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        //$metadata->addPropertyConstraint('title', new Assert\Type('integer'));
+    }
     
 }

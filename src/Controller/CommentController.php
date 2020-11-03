@@ -20,8 +20,8 @@ class CommentController extends AbstractController
     {
         // creates a task object and initializes some data for this example
         $comment = new Comment();
-        $comment->setContent('Content of comment');
-        $comment->setTitle('BlogTitle');
+        $comment->setContent('Title');
+        $comment->setTitle('Content');
 
         $form = $this->createForm(CommentType::class, $comment);
 
@@ -45,12 +45,4 @@ class CommentController extends AbstractController
         ]);
     }
 
-    /**
-    * @Route("/comment-validated", 
-    *        name="comment_validated")
-    */
-    public function validated() 
-    {
-        return $this->render('comment/validated.html.twig');
-    }
 }
