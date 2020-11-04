@@ -1,2 +1,13 @@
 {# templates/comment/new.html.twig #}
-{{ form(form) }}
+{% extends "base.html.twig" %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+    {# ... #}
+    {{ form_end(form) }}
+{% endblock %}

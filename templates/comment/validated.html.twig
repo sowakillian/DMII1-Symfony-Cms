@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{# templates/comment/validated.html.twig #}
+
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>Commentaire envoyé</h1>
+    <p class="important">
+        Votre commentaire a été envoyé. Il sera modéra avant d'être posté.
+    </p>
+{% endblock %}

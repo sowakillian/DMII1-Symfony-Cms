@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "booking" %}
+
+{% block title %}New Booking{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}Create new Booking{% endtrans %}</h1>
+
+    {{ include('booking/_form.html.twig') }}
+
+    <a href="{{ path('booking_index') }}">{% trans %}back to list{% endtrans %}</a>
+{% endblock %}

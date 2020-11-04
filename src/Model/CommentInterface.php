@@ -11,6 +11,9 @@ namespace App\Model;
  */
 interface CommentInterface extends StatusAwareInterface
 {
+    const STATUS_WAITING = 'waiting';
+    const STATUS_VALIDATED = 'validated';
+
     public function getContent(): ?string;
 
     public function setContent(?string $content): void;
