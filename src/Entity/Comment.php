@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -19,15 +18,31 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=255)
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $publicationDate;
+    private $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Media::class, inversedBy="comments")
+     */
+    private $media;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Equipement::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $equipment;
 
     public function getId(): ?int
     {
@@ -46,14 +61,50 @@ class Comment
         return $this;
     }
 
-    public function getPublicationDate(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->publicationDate;
+        return $this->date;
     }
 
-    public function setPublicationDate(\DateTimeInterface $publicationDate): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->publicationDate = $publicationDate;
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getMedia(): ?Media
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?Media $media): self
+    {
+        $this->media = $media;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEquipment(): ?Equipement
+    {
+        return $this->equipment;
+    }
+
+    public function setEquipment(?Equipement $equipment): self
+    {
+        $this->equipment = $equipment;
 
         return $this;
     }
