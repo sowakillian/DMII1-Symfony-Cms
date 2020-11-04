@@ -61,6 +61,7 @@ class Equipement
 
     public function __construct()
     {
+        $this->state = 'available';
         $this->bookings = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
