@@ -25,27 +25,17 @@ class BookingType extends AbstractType
         $builder
             ->add('loaningDate', DateTimeType::class, [
                 'label_translation_parameters' => [
-                    'Loaning date' => $this->translator->trans('Loaning date', [], 'booking'),
-                    'Year' => $this->translator->trans('Year', [], 'date'),
-                    'Month' => $this->translator->trans('Month', [], 'date'),
-                    'Day' => $this->translator->trans('Day', [], 'date'),
-                    'Hour' => $this->translator->trans('Hour', [], 'date'),
-                    'Minute' => $this->translator->trans('Minute', [], 'date'),
+                    'Loaning date' => $this->translator->trans('Loaning date', [], 'booking')
                 ],
             ])
             ->add('returnDate', DateTimeType::class, [
                 'label_translation_parameters' => [
-                    'Return date' => $this->translator->trans('Return date', [], 'booking'),
-                    'Year' => $this->translator->trans('Year', [], 'date'),
-                    'Month' => $this->translator->trans('Month', [], 'date'),
-                    'Day' => $this->translator->trans('Day', [], 'date'),
-                    'Hour' => $this->translator->trans('Hour', [], 'date'),
-                    'Minute' => $this->translator->trans('Minute', [], 'date'),
+                    'Return date' => $this->translator->trans('Return date', [], 'booking')
                 ],
             ])
             ->add('status', TextType::class, [
                 'label_translation_parameters' => [
-                    'Status' => $this->translator->trans('Status', [], 'booking'),
+                    'Status' => $this->translator->trans('Status', [], 'booking')
                 ],
             ])
         ;
