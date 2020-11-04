@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-use App\Repository\BookingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +15,7 @@ class PanelController extends AbstractController
     /**
      * @Route("/", name="panel_index")
      */
-    public function index(BookingRepository $bookingRepository): Response
+    public function index(): Response
     {
         return $this->render('panel/index.html.twig');
     }
