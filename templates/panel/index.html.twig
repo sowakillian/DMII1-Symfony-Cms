@@ -1,1 +1,13 @@
-<p>cc</p>
+{# templates/registration/index.html.twig #}
+{% extends 'base.html.twig' %} 
+
+{% block body %}
+
+panel index : 
+
+- Mes réservations
+- Si admin : les réservations à valider
+
+<a href="{{ path('booking_new') }}">Create new</a>
+
+{% endblock %}
