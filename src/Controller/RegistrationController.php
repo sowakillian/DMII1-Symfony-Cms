@@ -19,7 +19,10 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/registration", name="registration")
+     * @Route({
+     *     "en": "/registration",
+     *     "fr": "/inscription",
+     * }, name="registration")
      */
     public function index(Request $request)
     {

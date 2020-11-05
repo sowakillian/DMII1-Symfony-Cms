@@ -11,7 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/administration/equipments")
+ * @Route({
+ *     "en": "/administration/equipments",
+ *     "fr": "/administration/materiel",
+ * })
  */
 class EquipementController extends AbstractController
 {
@@ -26,7 +29,10 @@ class EquipementController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="equipement_new", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/add",
+     *     "fr": "/ajouter",
+     * }, name="equipement_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -59,7 +65,10 @@ class EquipementController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="equipement_edit", methods={"GET","POST"})
+     * @Route({
+     *     "en": "/{id}/edit",
+     *     "fr": "/{id}/modifier",
+     * }, name="equipement_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Equipement $equipement): Response
     {
