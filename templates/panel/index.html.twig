@@ -2,12 +2,20 @@
 {% extends 'base.html.twig' %} 
 
 {% block body %}
+<div class="homepage">
+    <div class="homepage-button homepage-button__white">
+        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    </div>
 
-panel index : 
+    <div class="homepage-onboarding">
+        Bienvenue {{ app.user.firstname }} {{ app.user.lastname }},
+        <p>Que voulez-vous faire sur Gobooking ?</p>
+    </div>
 
-- Mes réservations
-- Si admin : les réservations à valider
-
-<a href="{{ path('booking_new') }}">Create new</a>
+    <div class="homepage-buttons">
+        <a href="{{ path('booking_new') }}">Booking equipments</a>
+        <a href="#">See my bookings</a>
+    </div>
+</div>
 
 {% endblock %}

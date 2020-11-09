@@ -19,7 +19,7 @@
         <tbody>
         {% for booking in bookings %}
             <tr>
-                <td>{{ booking.id }}</td>
+                <td>#{{ booking.id }}</td>
                 <td>{{ booking.equipments }}</td>
                 <td>{{ booking.loaningDate ? booking.loaningDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d H:i:s') : '' }}</td>

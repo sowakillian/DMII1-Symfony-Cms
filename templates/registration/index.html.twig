@@ -1,11 +1,13 @@
 {# templates/registration/index.html.twig #} {% extends 'base.html.twig' %} {%
     block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 ml-md-auto">
-                <div class="card bg-light mb-3 mt-5" style="width: 800px">
-                    <div class="card-body">
-                        <div class="card-header mb-3">Registration Form</div>
+    <div class="login">
+        <h1 class="login-title">Gobooking</h1>
+    <a href="{{ path('app_login') }}" class="login-button login-button__white">Se connecter</a>
+    <div class="login-formwrapper">
+        <div class="login-onboarding">
+            <div><img src="{{ asset('images/logo_gobelins.png') }}" alt="Logo Gobelins!"/></div>
+            <p>Inscrivez-vous sur Gobooking en utilisant votre e-mail Gobelins</p>
+        </div>
                         {{ form_start(form) }}
                         <div class="form_group">
                             <div class="col-md-12 mb-3">
@@ -37,14 +39,11 @@
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Register
+                                    <i class="fa fa-btn fa-user"></i> S'inscrire
                                 </button>
                             </div>
                         </div>
                         {{ form_end(form) }}
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 {% endblock %}

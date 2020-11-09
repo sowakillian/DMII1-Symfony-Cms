@@ -44,7 +44,7 @@ class RegistrationController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('panel_login');
+            return $this->redirectToRoute('home_index');
         }
 
         return $this->render('registration/index.html.twig', [

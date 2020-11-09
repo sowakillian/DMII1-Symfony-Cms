@@ -1,15 +1,46 @@
-
 .admin {
   height: 100vh;
   display: flex;
   &-sidenav {
     width: 335px;
     height: 100%;
-    background-color: blue;
+    background: linear-gradient(45deg,#2293FC, #0057A9);
+    color: white;
+
+    h1 {
+      text-align: center;
+      margin-top: 70px;
+      margin-bottom: 80px;
+    }
+
+    &-menu {
+      font-size: 25px;
+
+      li {
+        height: 62px;
+        background-color: wheat;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+    }
   }
 
   &-content {
     padding: 70px;
     width: calc(100% - 335px);
+
+    table {
+      margin-top: 50px;
+
+      tr {
+        border: 1px solid #E5E2E2;
+      }
+    }
+
+    thead {
+      background-color: #F9F9F9;
+      border-radius: 10px 10px 0 0;
+    }
   }
 }

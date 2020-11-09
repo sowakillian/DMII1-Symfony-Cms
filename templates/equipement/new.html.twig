@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'administration/base.html.twig' %}
+{% trans_default_domain "equipement" %}
 
-{% block title %}New Equipement{% endblock %}
+{% block title %}{% trans %}Add an equipment{% endtrans %}{% endblock %}
 
-{% block body %}
-    <h1>Create new Equipement</h1>
+{% block admincontent %}
+    <h1>{% trans %}Add an equipment{% endtrans %}</h1>
 
     {{ include('equipement/_form.html.twig') }}
 

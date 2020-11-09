@@ -1,70 +1,66 @@
 {# templates/security/login.html.twig #} {% extends 'base.html.twig' %} {% block
     title %}Log in!{% endblock %} {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 ml-md-auto">
-                <div class="">
-                    <div class="card bg-light mb-3 mt-5" style="width: 800px;">
-                        <div class="card-body">
-                            <form class="form-horizontal" role="form" method="post">
-                                {% if error %}
-                                    <div class="alert alert-danger">
-                                        {{ error.messageKey|trans(error.messageData, 'security') }}
+    <div class="login">
+        <h1 class="login-title">Gobooking</h1>
+        <a href="{{ path('registration') }}" class="login-button login-button__white">S'inscrire</a>
+                        <div class="login-formwrapper">
+                                <form class="form-horizontal" role="form" method="post">
+                                    {% if error %}
+                                        <div class="alert alert-danger">
+                                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="login-onboarding">
+                                        <div><img src="{{ asset('images/logo_gobelins.png') }}" alt="Logo Gobelins!"/></div>
+                                        <p>Réservez votre matériel facilement et rapidement en quelques clics</p>
                                     </div>
-                                {% endif %} {% if app.user %}
-                                    <div class="mb-3">
-                                        You are logged in as {{ app.user.username }},
-                                        <a href="{{ path('app_logout') }}">Logout</a>
+                                    <div class="form-group">
+                                        <label for="email" class="col-md-4 control-label"
+                                        >E-Mail Address</label
+                                        >
+                                        <div class="col-md-12">
+                                            <input
+                                                    placeholder="Adresse e-mail Gobelins"
+                                                    id="inputEmail"
+                                                    type="email"
+                                                    class="form-control"
+                                                    name="email"
+                                                    value="{{ last_username }}"
+                                                    required
+                                                    autofocus
+                                            />
+                                        </div>
                                     </div>
-                                {% endif %}
-                                <div class="card-header mb-3">Please sign in</div>
-                                <div class="form-group">
-                                    <label for="email" class="col-md-4 control-label"
-                                    >E-Mail Address</label
-                                    >
-                                    <div class="col-md-12">
-                                        <input
-                                                id="inputEmail"
-                                                type="email"
-                                                class="form-control"
-                                                name="email"
-                                                value="{{ last_username }}"
-                                                required
-                                                autofocus
-                                        />
+                                    <div class="form-group">
+                                        <label for="password" class="col-md-4 control-label"
+                                        >Password</label
+                                        >
+                                        <div class="col-md-12">
+                                            <input
+                                                    placeholder="Mot de passe"
+                                                    id="inputPassword"
+                                                    type="password"
+                                                    class="form-control"
+                                                    name="password"
+                                                    required
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="col-md-4 control-label"
-                                    >Password</label
-                                    >
-                                    <div class="col-md-12">
-                                        <input
-                                                id="inputPassword"
-                                                type="password"
-                                                class="form-control"
-                                                name="password"
-                                                required
-                                        />
+                                    <input
+                                            type="hidden"
+                                            name="_csrf_token"
+                                            value="{{ csrf_token('authenticate') }}"
+                                    />
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-btn fa-sign-in"></i> Se connecter
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <input
-                                        type="hidden"
-                                        name="_csrf_token"
-                                        value="{{ csrf_token('authenticate') }}"
-                                />
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-btn fa-sign-in"></i> Login
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+
 {% endblock %}

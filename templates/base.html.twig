@@ -8,26 +8,11 @@
             rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 </head>
-<body>
-<nav
-        class="navbar navbar-expand-lg navbar-light bg-light"
-        style="height: 70px;"
->
-    <a class="navbar-brand" href="#">GLPI</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
-    <ul class="nav navbar-nav navbar-right">
-        {% if app.user %}
-            <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
-        {% else %}
-            <li><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
-            <li>
-                <a class="nav-link" href="{{ path('registration') }}">Register</a>
-            </li>
-        {% endif %}
-    </ul>
-</nav>
+<body class="body">
 {% block body %}{% endblock %} {% block javascripts %}{% endblock %}
 </body>
 </html>

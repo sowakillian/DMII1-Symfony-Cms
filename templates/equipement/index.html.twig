@@ -14,12 +14,13 @@
                 <th>{% trans %}Description{% endtrans %}</th>
                 <th>{% trans %}Name{% endtrans %}</th>
                 <th>{% trans %}Serial number{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
         {% for equipement in equipements %}
             <tr>
-                <td>{{ equipement.id }}</td>
+                <td>#{{ equipement.id }}</td>
                 <td>{{ equipement.state }}</td>
                 <td>{{ equipement.description }}</td>
                 <td>{{ equipement.name }}</td>
