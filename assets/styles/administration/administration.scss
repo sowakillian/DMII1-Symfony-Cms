@@ -1,0 +1,15 @@
+
+.admin {
+  height: 100vh;
+  display: flex;
+  &-sidenav {
+    width: 335px;
+    height: 100%;
+    background-color: blue;
+  }
+
+  &-content {
+    padding: 70px;
+    width: calc(100% - 335px);
+  }
+}

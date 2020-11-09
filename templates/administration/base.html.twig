@@ -1,0 +1,25 @@
+{# templates/administration/base.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Administration{% endblock %}</title>
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body class="admin">
+    <div class="admin-sidenav">
+
+    </div>
+    <div class="admin-content">
+        {% block admincontent %}
+        {% endblock %}
+    </div>
+ {% block javascripts %}{% endblock %}
+</body>
+</html>

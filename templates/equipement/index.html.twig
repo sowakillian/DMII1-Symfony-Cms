@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'administration/base.html.twig' %}
 {% trans_default_domain "equipement" %}
 
 {% block title %}{% trans %}Equipments{% endtrans %}{% endblock %}
 
-{% block body %}
+    {% block admincontent %}
     <h1>{% trans %}Equipments{% endtrans %}</h1>
 
     <table class="table">
@@ -38,4 +38,4 @@
     </table>
 
     <a href="{{ path('equipement_new') }}">{% trans %}Add an equipment{% endtrans %}</a>
-{% endblock %}
+    {% endblock %}
