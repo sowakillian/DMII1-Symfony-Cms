@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "category" %}
+
+{% block title %}{% trans %}Add a category{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}Add a category{% endtrans %}</h1>
+
+    {{ include('category/_form.html.twig') }}
+
+    <a href="{{ path('category_index') }}">{% trans %}Back to list{% endtrans %}</a>
+{% endblock %}

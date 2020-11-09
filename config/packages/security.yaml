@@ -1,4 +1,11 @@
 security:
+    access_control:
+        - { path: ^/connexion, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/administration, roles: ROLE_ADMIN }
+        - { path: ^/, role: ROLE_USER }
     encoders:
         App\Entity\User:
             algorithm: auto

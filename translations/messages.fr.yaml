@@ -1,5 +1,4 @@
 # Date
-
 Year: Année
 Month: Mois
 Day: Jour
@@ -8,3 +7,7 @@ Minute: Minute
 
 # Buttons
 Save: Valider
+
+# Forms label
+Loaning date: Date d'emprunt
+Return date: Date de retour

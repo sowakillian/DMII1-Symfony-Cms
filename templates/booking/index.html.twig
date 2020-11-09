@@ -1,24 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'administration/base.html.twig' %}
+{% trans_default_domain "booking" %}
 
 {% block title %}Booking index{% endblock %}
 
-{% block body %}
-    <h1>Booking index</h1>
+{% block admincontent %}
+    <h1>{% trans %}Bookings{% endtrans %}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>LoaningDate</th>
-                <th>ReturnDate</th>
-                <th>Status</th>
-                <th>actions</th>
+                <th>{% trans %}Number{% endtrans %}</th>
+                <th>{% trans %}Equipments{% endtrans %}</th>
+                <th>{% trans %}Loaning date{% endtrans %}</th>
+                <th>{% trans %}Return date{% endtrans %}</th>
+                <th>{% trans %}Status{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
         {% for booking in bookings %}
             <tr>
-                <td>{{ booking.id }}</td>
+                <td>#{{ booking.id }}</td>
+                <td>{{ booking.equipments }}</td>
                 <td>{{ booking.loaningDate ? booking.loaningDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ booking.status }}</td>

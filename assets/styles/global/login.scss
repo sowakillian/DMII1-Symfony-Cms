@@ -1,0 +1,68 @@
+.login {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  &-formwrapper {
+    background-color: white;
+    margin: 50px auto 0 auto;
+    padding: 60px 110px;
+    width: 800px;
+    box-shadow: 0px 6px 15px #0000004D;
+
+    .btn {
+      background: transparent linear-gradient(281deg, #0057A9 0%, #2293FC 100%) 0% 0% no-repeat padding-box;
+    }
+
+    label {
+      display: none;
+    }
+  }
+
+  &-onboarding {
+    color: #005BB0;
+    font-size: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      margin-left: 34px;
+    }
+  }
+
+  &-title {
+    font-size: 70px;
+    text-align: center;
+    color: white;
+  }
+  &-button {
+    position: absolute;
+    top: 45px;
+    right: 45px;
+    -webkit-appearance: none;
+    border: none;
+    width: 275px;
+    height: 54px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__white {
+      background-color: white;
+      color: #005BB0;
+    }
+  }
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

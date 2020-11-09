@@ -1,1 +1,21 @@
-<p>cc</p>
+{# templates/registration/index.html.twig #}
+{% extends 'base.html.twig' %} 
+
+{% block body %}
+<div class="homepage">
+    <div class="homepage-button homepage-button__white">
+        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    </div>
+
+    <div class="homepage-onboarding">
+        Bienvenue {{ app.user.firstname }} {{ app.user.lastname }},
+        <p>Que voulez-vous faire sur Gobooking ?</p>
+    </div>
+
+    <div class="homepage-buttons">
+        <a href="{{ path('booking_new') }}">Booking equipments</a>
+        <a href="#">See my bookings</a>
+    </div>
+</div>
+
+{% endblock %}

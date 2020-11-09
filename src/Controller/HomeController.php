@@ -8,12 +8,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/panel")
+ * @Route({
+ *     "en": "/",
+ *     "fr": "/",
+ * })
  */
-class PanelController extends AbstractController
+class HomeController  extends AbstractController
 {
     /**
-     * @Route("/", name="panel_index")
+     * @Route("/", name="home_index", methods={"GET"})
      */
     public function index(): Response
     {

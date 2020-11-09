@@ -1,0 +1,42 @@
+{% extends 'administration/base.html.twig' %}
+{% trans_default_domain "equipement" %}
+
+{% block title %}{% trans %}Equipments{% endtrans %}{% endblock %}
+
+    {% block admincontent %}
+    <h1>{% trans %}Equipments{% endtrans %}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans %}Number{% endtrans %}</th>
+                <th>{% trans %}State{% endtrans %}</th>
+                <th>{% trans %}Description{% endtrans %}</th>
+                <th>{% trans %}Name{% endtrans %}</th>
+                <th>{% trans %}Serial number{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipement in equipements %}
+            <tr>
+                <td>#{{ equipement.id }}</td>
+                <td>{{ equipement.state }}</td>
+                <td>{{ equipement.description }}</td>
+                <td>{{ equipement.name }}</td>
+                <td>{{ equipement.serialNumber }}</td>
+                <td>
+                    <a href="{{ path('equipement_show', {'id': equipement.id}) }}">show</a>
+                    <a href="{{ path('equipement_edit', {'id': equipement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">{% trans %}No equipment has been added{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('equipement_new') }}">{% trans %}Add an equipment{% endtrans %}</a>
+    {% endblock %}
