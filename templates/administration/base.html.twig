@@ -1,4 +1,6 @@
 {# templates/administration/base.html.twig #}
+{% trans_default_domain "administration" %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,17 +15,23 @@
     {% endblock %}
 </head>
 <body class="admin">
-    <div class="admin-sidenav">
-        <h1>Gobooking</h1>
-        <nav class="admin-sidenav-menu">
-            <ul>
-                <li><a href="{{ path('booking_index') }}">Bookings</a></li>
-                <li><a href="{{ path('equipement_index') }}">Equipments</a></li>
-                <li><a href="{{ path('category_index') }}">Categories</a></li>
-                <li><a href="#">Accounts</a></li>
-            </ul>
-        </nav>
+<div class="sidebar">
+    <div class="sidebar-header">
+        <img src="{{ asset('images/logo_gobelins.png') }}" class="sidebar-header-logo">
+        <div class="sidebar-header-name">{{ app.user.firstname }} {{ app.user.lastname }}</div>
     </div>
+
+    <nav class="sidebar-nav">
+        <ul>
+            <li class="{{ app.request.pathinfo == ('/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="#">{% trans %}Home{% endtrans %}</a></li>
+            <li class="{{ app.request.pathinfo == ('/administration/reservations/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('booking_index') }}">{% trans %}Bookings{% endtrans %}</a></li>
+            <li class="{{ app.request.pathinfo == ('/administration/materiel/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('equipement_index') }}">{% trans %}Equipments{% endtrans %}</a></li>
+            <li class="{{ app.request.pathinfo == ('/administration/materiel/categories/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('category_index') }}">{% trans %}Categories{% endtrans %}</a></li>
+            <li class="{{ app.request.pathinfo == ('/administration/utilisateurs/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('user_index') }}">{% trans %}Users{% endtrans %}</a></li>
+        </ul>
+    </nav>
+
+</div>
     <div class="admin-content">
         {% block admincontent %}
         {% endblock %}

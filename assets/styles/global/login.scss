@@ -29,6 +29,15 @@
     align-items: center;
     justify-content: space-between;
 
+    &-logo {
+      width: 65px;
+      height: 65px;
+
+      img {
+        max-width: 130%;
+      }
+    }
+
     p {
       margin-left: 34px;
     }

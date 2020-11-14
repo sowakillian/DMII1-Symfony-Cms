@@ -4,14 +4,12 @@
 {% block title %}{% trans %}Equipments{% endtrans %}{% endblock %}
 
     {% block admincontent %}
-    <h1>{% trans %}Equipments{% endtrans %}</h1>
+    <h1 class="dashboard-title">{% trans %}Equipments{% endtrans %}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>{% trans %}Number{% endtrans %}</th>
                 <th>{% trans %}State{% endtrans %}</th>
-                <th>{% trans %}Description{% endtrans %}</th>
                 <th>{% trans %}Name{% endtrans %}</th>
                 <th>{% trans %}Serial number{% endtrans %}</th>
                 <th>{% trans %}Actions{% endtrans %}</th>
@@ -20,9 +18,7 @@
         <tbody>
         {% for equipement in equipements %}
             <tr>
-                <td>#{{ equipement.id }}</td>
                 <td>{{ equipement.state }}</td>
-                <td>{{ equipement.description }}</td>
                 <td>{{ equipement.name }}</td>
                 <td>{{ equipement.serialNumber }}</td>
                 <td>
