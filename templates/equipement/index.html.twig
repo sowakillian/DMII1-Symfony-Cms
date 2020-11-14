@@ -12,7 +12,7 @@
                 <th>{% trans %}State{% endtrans %}</th>
                 <th>{% trans %}Name{% endtrans %}</th>
                 <th>{% trans %}Serial number{% endtrans %}</th>
-                <th>{% trans %}Actions{% endtrans %}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -22,8 +22,8 @@
                 <td>{{ equipement.name }}</td>
                 <td>{{ equipement.serialNumber }}</td>
                 <td>
-                    <a href="{{ path('equipement_show', {'id': equipement.id}) }}">show</a>
-                    <a href="{{ path('equipement_edit', {'id': equipement.id}) }}">edit</a>
+                    <a href="{{ path('equipement_show', {'id': equipement.id}) }}"><img src="{{ asset('images/icon_show.png') }}" alt="Show"></a>
+                    <a href="{{ path('equipement_edit', {'id': equipement.id}) }}"><img src="{{ asset('images/icon_edit.png') }}" alt="Edit"></a>
                 </td>
             </tr>
         {% else %}
@@ -34,5 +34,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('equipement_new') }}">{% trans %}Add an equipment{% endtrans %}</a>
+    <a class="basic-button" href="{{ path('equipement_new') }}">{% trans %}Add an equipment{% endtrans %}</a>
     {% endblock %}

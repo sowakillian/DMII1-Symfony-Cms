@@ -1,11 +1,15 @@
 # Title
-Create new Booking: Créer une nouvelle réservation
+Create new booking: Créer une nouvelle réservation
 
 Bookings: Réservations
 Number: Numéro
+No bookings found: Aucunes réservations trouvées
+Equipments: Matériel
 
 # Form
 Loaning date: Date d'emprunt
+Loaning: Emprunt
 Return date: Date de retour
+Return: Retour
 Status: Status
 back to list: Retour à la liste

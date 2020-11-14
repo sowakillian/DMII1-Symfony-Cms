@@ -3,9 +3,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Equipement;
-use App\Form\EquipementType;
-use App\Service\FileUploader;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +38,7 @@ class UserController extends AbstractController
     public function new(Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(EquipementType::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -72,11 +70,11 @@ class UserController extends AbstractController
      * @Route({
      *     "en": "/{id}/edit",
      *     "fr": "/{id}/modifier",
-     * }, name="equipement_edit", methods={"GET","POST"})
+     * }, name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(EquipementType::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -86,13 +84,13 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', [
-            'user' => $equipement,
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="equipement_delete", methods={"DELETE"})
+     * @Route("/{id}", name="user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {

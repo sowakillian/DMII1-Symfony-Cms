@@ -11,7 +11,7 @@
             <tr>
                 <th>{% trans %}Number{% endtrans %}</th>
                 <th>{% trans %}Nom{% endtrans %}</th>
-                <th>{% trans %}Actions{% endtrans %}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -20,8 +20,8 @@
                 <td>#{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">{% trans %}Look at{% endtrans %}</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">{% trans %}Edit{% endtrans %}</a>
+                    <a href="{{ path('category_show', {'id': category.id}) }}"><img src="{{ asset('images/icon_show.png') }}" alt="Show"></a>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}"><img src="{{ asset('images/icon_edit.png') }}" alt="Edit"></a>
                 </td>
             </tr>
         {% else %}
@@ -32,5 +32,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('category_new') }}">{% trans %}Add a category{% endtrans %}</a>
+    <a class="basic-button" href="{{ path('category_new') }}">{% trans %}Add a category{% endtrans %}</a>
 {% endblock %}

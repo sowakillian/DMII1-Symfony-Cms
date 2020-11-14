@@ -1,1 +1,10 @@
-Coucou admin
+{% extends 'administration/base.html.twig' %}
+{% trans_default_domain "administration" %}
+
+{% block title %}{% trans %}Administration{% endtrans %}{% endblock %}
+
+{% block admincontent %}
+    <h1 class="dashboard-title">{% trans %}Statistiques{% endtrans %}</h1>
+
+
+{% endblock %}

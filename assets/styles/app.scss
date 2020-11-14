@@ -7,3 +7,18 @@
   background: transparent linear-gradient(119deg, #0057A9 0%, #2293FC 100%) 0% 0% no-repeat padding-box;
   height: 100vh;
 }
+
+.basic-button {
+  background: linear-gradient(to right, #2293FC, #0057A9);
+  color: white;
+  padding: 15px 25px;
+  border-radius:30px;
+  font-weight: bold;
+  margin-top: 15px;
+  display: inline-block;
+  font-size: 14px;
+
+  &:hover {
+    color: white;
+  }
+}

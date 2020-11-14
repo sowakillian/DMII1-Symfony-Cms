@@ -9,7 +9,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th>{% trans %}Id{% endtrans %}</th>
                 <th>{% trans %}Email{% endtrans %}</th>
                 <th>{% trans %}First name{% endtrans %}</th>
                 <th>{% trans %}Last name{% endtrans %}</th>
@@ -19,12 +18,12 @@
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td>#{{ user.id }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.firstName }}</td>
                     <td>{{ user.lastName }}</td>
                     <td>
-
+                        <a href="{{ path('category_show', {'id': 'zz'}) }}"><img src="{{ asset('images/icon_show.png') }}" alt="Show"></a>
+                        <a href="{{ path('category_edit', {'id': 'zz'}) }}"><img src="{{ asset('images/icon_edit.png') }}" alt="Edit"></a>
                     </td>
                 </tr>
             {% else %}
@@ -35,5 +34,5 @@
             </tbody>
         </table>
 
-        <a href="{{ path('equipement_new') }}">{% trans %}Add an user{% endtrans %}</a>
+        <a class="basic-button" href="{{ path('equipement_new') }}">{% trans %}Add an user{% endtrans %}</a>
     {% endblock %}
