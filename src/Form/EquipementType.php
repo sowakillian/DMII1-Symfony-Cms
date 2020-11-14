@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Equipement;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class EquipementType extends AbstractType
 {
@@ -16,7 +18,25 @@ class EquipementType extends AbstractType
             ->add('description')
             ->add('serialNumber')
             //->add('category')
-            ->add('media')
+            ->add('media', FileType::class, [
+                'label' => 'Media (JPG/PNG)',
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+
+                'required' => true,
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a JPEG or a PNG',
+                    ])
+                ],
+            ])
         ;
     }
 
