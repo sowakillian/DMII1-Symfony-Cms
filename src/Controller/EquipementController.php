@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Equipement;
 use App\Form\EquipementType;
+use App\Service\FileUploader;
 use App\Repository\EquipementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,13 +35,19 @@ class EquipementController extends AbstractController
      *     "fr": "/ajouter",
      * }, name="equipement_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, FileUploader $fileUploader): Response
     {
         $equipement = new Equipement();
         $form = $this->createForm(EquipementType::class, $equipement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $mediaFile = $form->get('media')->getData();
+            if ($mediaFile) {
+                $media = $fileUploader->upload($mediaFile);
+                //$equipement->setMedia(Media);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($equipement);
             $entityManager->flush();
