@@ -1,6 +1,7 @@
 .admin {
   height: 100vh;
   display: flex;
+  background-color: #FBFCFE;
 
   &-content {
     margin-left: 520px;
@@ -20,8 +21,10 @@
       border-radius: 23px;
       background-color: white;
       border: 1px solid rgba(26, 34, 85, 0.07);
+      vertical-align: middle;
 
       td  {
+        vertical-align: middle;
         &:last-of-type {
           text-align: right;
         }

@@ -16,8 +16,13 @@
   border-radius:30px;
   font-weight: bold;
   font-size: 14px;
+  transition: all 0.2s ease;
 
   &:hover {
     color: white;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 3px 15px rgba(155, 155, 155, 0.7);
+    text-decoration: underline;
   }
 }

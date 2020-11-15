@@ -6,5 +6,35 @@
 {% block admincontent %}
     <h1 class="dashboard-title">{% trans %}Statistiques{% endtrans %}</h1>
 
+    <ul class="dashboard-stats">
+        <li class="stats-item dashboard-stats-users">
+            <div class="stats-item__text">
+                <span class="stats-item__title">{{ users|length }}</span>
+                <span class="stats-item__desc">Utilisateurs inscrits</span>
+            </div>
+            <div class="stats-item__icon">
+                <img src="{{ asset('images/icon_users.svg') }}">
+            </div>
+        </li>
+        <li class="stats-item dashboard-stats-requests">
+            <div class="stats-item__text">
+                <span class="stats-item__title">{{ bookings|length }}</span>
+                <span class="stats-item__desc">Demandes à traiter</span>
+            </div>
+            <div class="stats-item__icon">
+                <img src="{{ asset('images/icon_requests.svg') }}">
+            </div>
+        </li>
+        <li class="stats-item dashboard-stats-partnerships">
+            <div class="stats-item__text">
+                <span class="stats-item__title">{{ equipments|length }}</span>
+                <span class="stats-item__desc">Équipements</span>
+            </div>
+            <div class="stats-item__icon stats-item__icon__big">
+                <img src="{{ asset('images/icon_equipment.svg') }}">
+            </div>
+        </li>
+    </ul>
+
 
 {% endblock %}
