@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Equipement;
+use App\Entity\Media;
 use App\Form\EquipementType;
 use App\Service\FileUploader;
 use App\Repository\EquipementRepository;
@@ -38,17 +39,20 @@ class EquipementController extends AbstractController
     public function new(Request $request, FileUploader $fileUploader): Response
     {
         $equipement = new Equipement();
+        $media = new Media();
         $form = $this->createForm(EquipementType::class, $equipement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $mediaFile = $form->get('media')->getData();
             if ($mediaFile) {
-                $media = $fileUploader->upload($mediaFile);
-                //$equipement->setMedia(Media);
+                $media->setPath($fileUploader->upload($mediaFile));
+                $media->setTitle($form->get('name')->getData());
+                $equipement->setMedia($media);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($media);
             $entityManager->persist($equipement);
             $entityManager->flush();
 

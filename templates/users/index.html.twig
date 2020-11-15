@@ -1,0 +1,40 @@
+{% extends 'administration/base.html.twig' %}
+{% trans_default_domain "administration" %}
+
+{% block title %}{% trans %}Users{% endtrans %}{% endblock %}
+
+    {% block admincontent %}
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">{% trans %}Users{% endtrans %}</h1>
+            <a class="basic-button" href="{{ path('equipement_new') }}">{% trans %}Create an user{% endtrans %}</a>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{% trans %}Email{% endtrans %}</th>
+                <th>{% trans %}First name{% endtrans %}</th>
+                <th>{% trans %}Last name{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>
+                        <a href="{{ path('category_show', {'id': 'zz'}) }}"><img src="{{ asset('images/icon_show.svg') }}" alt="Show"></a>
+                        <a href="{{ path('category_edit', {'id': 'zz'}) }}"><img src="{{ asset('images/icon_edit.svg') }}" alt="Edit"></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">{% trans %}No user are registered{% endtrans %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endblock %}

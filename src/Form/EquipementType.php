@@ -19,13 +19,9 @@ class EquipementType extends AbstractType
             ->add('serialNumber')
             //->add('category')
             ->add('media', FileType::class, [
-                'label' => 'Media (JPG/PNG)',
-
-                // unmapped means that this field is not associated to any entity property
+                'label' => 'Photo',
                 'mapped' => false,
-
                 'required' => true,
-
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
