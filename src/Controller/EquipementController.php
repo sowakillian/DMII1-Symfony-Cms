@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Equipement;
 use App\Entity\Media;
 use App\Form\EquipementType;
@@ -40,6 +41,7 @@ class EquipementController extends AbstractController
     {
         $equipement = new Equipement();
         $media = new Media();
+        $category = new Category();
         $form = $this->createForm(EquipementType::class, $equipement);
         $form->handleRequest($request);
 
@@ -51,8 +53,11 @@ class EquipementController extends AbstractController
                 $equipement->setMedia($media);
             }
 
+            $category->setName("TestCategory");
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($media);
+            $entityManager->persist($category);
             $entityManager->persist($equipement);
             $entityManager->flush();
 

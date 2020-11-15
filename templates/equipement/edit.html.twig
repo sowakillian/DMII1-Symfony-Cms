@@ -1,13 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'administration/base.html.twig' %}
+{% trans_default_domain "administration" %}
 
-{% block title %}Edit Equipement{% endblock %}
+{% block title %}{% trans %}Edit equipment{% endtrans %}{% endblock %}
 
-{% block body %}
-    <h1>Edit Equipement</h1>
+{% block admincontent %}
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">{% trans %}Edit equipment{% endtrans %}</h1>
+        <a class="basic-button" href="{{ path('equipement_index') }}">{% trans %}Back to list{% endtrans %}</a>
+    </div>
 
     {{ include('equipement/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('equipement_index') }}">back to list</a>
 
     {{ include('equipement/_delete_form.html.twig') }}
 {% endblock %}

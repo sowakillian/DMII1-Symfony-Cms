@@ -1,9 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'administration/base.html.twig' %}
+{% trans_default_domain "booking" %}
 
 {% block title %}Edit Booking{% endblock %}
 
-{% block body %}
-    <h1>Edit Booking</h1>
+{% block admincontent %}
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">{% trans %}Edit booking{% endtrans %}</h1>
+        <a class="basic-button" href="{{ path('booking_index') }}">{% trans %}Back to bookings{% endtrans %}</a>
+    </div>
 
     {{ include('booking/_form.html.twig', {'button_label': 'Update'}) }}
 
