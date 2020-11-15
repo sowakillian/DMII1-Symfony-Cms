@@ -4,7 +4,10 @@
 {% block title %}Booking index{% endblock %}
 
 {% block admincontent %}
-    <h1 class="dashboard-title">{% trans %}Bookings{% endtrans %}</h1>
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">{% trans %}Bookings{% endtrans %}</h1>
+        <a class="basic-button" href="{{ path('booking_new') }}">{% trans %}Create new booking{% endtrans %}</a>
+    </div>
 
     <table class="table">
         <thead>
@@ -37,5 +40,4 @@
         </tbody>
     </table>
 
-    <a class="basic-button" href="{{ path('booking_new') }}">{% trans %}Create new booking{% endtrans %}</a>
 {% endblock %}

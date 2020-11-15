@@ -20,12 +20,8 @@ class EquipementType extends AbstractType
             //->add('category')
             ->add('media', FileType::class, [
                 'label' => 'Photo',
-
-                // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
-
                 'required' => true,
-
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',

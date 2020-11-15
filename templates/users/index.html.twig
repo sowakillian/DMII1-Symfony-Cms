@@ -4,7 +4,10 @@
 {% block title %}{% trans %}Users{% endtrans %}{% endblock %}
 
     {% block admincontent %}
-        <h1 class="dashboard-title">{% trans %}Users{% endtrans %}</h1>
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">{% trans %}Users{% endtrans %}</h1>
+            <a class="basic-button" href="{{ path('equipement_new') }}">{% trans %}Create an user{% endtrans %}</a>
+        </div>
 
         <table class="table">
             <thead>
@@ -22,8 +25,8 @@
                     <td>{{ user.firstName }}</td>
                     <td>{{ user.lastName }}</td>
                     <td>
-                        <a href="{{ path('category_show', {'id': 'zz'}) }}"><img src="{{ asset('images/icon_show.png') }}" alt="Show"></a>
-                        <a href="{{ path('category_edit', {'id': 'zz'}) }}"><img src="{{ asset('images/icon_edit.png') }}" alt="Edit"></a>
+                        <a href="{{ path('category_show', {'id': 'zz'}) }}"><img src="{{ asset('images/icon_show.svg') }}" alt="Show"></a>
+                        <a href="{{ path('category_edit', {'id': 'zz'}) }}"><img src="{{ asset('images/icon_edit.svg') }}" alt="Edit"></a>
                     </td>
                 </tr>
             {% else %}
@@ -34,5 +37,4 @@
             </tbody>
         </table>
 
-        <a class="basic-button" href="{{ path('equipement_new') }}">{% trans %}Add an user{% endtrans %}</a>
     {% endblock %}

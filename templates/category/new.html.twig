@@ -4,9 +4,11 @@
 {% block title %}{% trans %}Add a category{% endtrans %}{% endblock %}
 
 {% block admincontent %}
-    <h1>{% trans %}Add a category{% endtrans %}</h1>
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">{% trans %}Add a category{% endtrans %}</h1>
+        <a class="basic-button" href="{{ path('category_index') }}">{% trans %}Back to list{% endtrans %}</a>
+    </div>
 
     {{ include('category/_form.html.twig') }}
 
-    <a class="basic-button" href="{{ path('category_index') }}">{% trans %}Back to list{% endtrans %}</a>
 {% endblock %}

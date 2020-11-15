@@ -1,5 +1,6 @@
 @import 'administration/administration.scss';
 @import 'administration/container.scss';
+@import 'administration/equipment.scss';
 @import 'global/homepage.scss';
 @import 'global/login.scss';
 
@@ -14,8 +15,6 @@
   padding: 15px 25px;
   border-radius:30px;
   font-weight: bold;
-  margin-top: 15px;
-  display: inline-block;
   font-size: 14px;
 
   &:hover {
