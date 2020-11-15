@@ -1,0 +1,58 @@
+{% trans_default_domain "booking" %}
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{% trans %}Category(ies){% endtrans %}</h5>
+                        <p class="card-text">
+                            <ul class="list">
+                                {% for cat in categories %}
+                                    <li>{{ cat.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{% trans %}Equipment(s){% endtrans %}</h5>
+                        <p class="card-text">
+                            <ul class="list">
+                                {% for eq in booking["equipements"] %}
+                                    <li>{{ eq.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{% trans %}Date(s){% endtrans %}</h5>
+                        <p class="card-text">
+                            {% trans %}From{% endtrans %} {{ booking["loaningDate"]["date"]["day"] }}/{{ booking["loaningDate"]["date"]["month"] }}/{{ booking["loaningDate"]["date"]["year"] }}<br>
+                            {% trans %}to{% endtrans %} {{ booking["returnDate"]["date"]["day"] }}/{{ booking["returnDate"]["date"]["month"] }}/{{ booking["returnDate"]["date"]["year"] }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="col-12">
+    {{ form_start(form) }}
+        <div class="d-flex justify-content-center mt-3">
+            <button class="btn btn-dark" type="submit">{{ button_label|default('Validate my booking')|trans }}</button>
+        </div>
+    {{ form_end(form, {'render_rest': false}) }}
+</div>
+
+</div>
