@@ -6,9 +6,13 @@ use App\Entity\Booking;
 use App\Entity\Category;
 use App\Entity\Equipment;
 
-use App\Form\BookingType;
+use App\Form\BookingTypeStep1;
+use App\Form\BookingTypeStep2;
+use App\Form\BookingTypeStep3;
 
 use App\Repository\BookingRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\EquipmentRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,27 +45,24 @@ class BookingController extends AbstractController
      *     "fr": "/ajouter/etape1",
      * }, name="booking_new_step1", methods={"GET","POST"})
      */
-    public function new(Request $request, EntityManagerInterface $em): Response
+    public function new(Request $request): Response
     {
         $booking = new Booking();
-        $form = $this->createForm(BookingType::class, $booking);
+        $form = $this->createForm(BookingTypeStep1::class, $booking, ['validation_groups' => ['creation']]);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST')) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            // set equipments to booking
-            $equipments = $request->request->get('booking')['equipments'];
+            $booking->setStatus('loading');
+            $booking->setUser($this->get('security.token_storage')->getToken()->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($booking);
+            $entityManager->flush();
 
-            // redirect
-            return $this->redirectToRoute('booking_new_step2', array('equipments' => $equipments));
+            return $this->redirectToRoute('booking_new_step2', ['bookingId' => $booking->getId()]);
         }
         
-        // get categories
-        $categoryRepository = $em->getRepository(Category::class);
-        $categories = $categoryRepository->findAll();
-
-
-        return $this->render('booking/newStape1.html.twig', [
-            'categories' => $categories,
+        return $this->render('booking/new/step1.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -72,29 +73,36 @@ class BookingController extends AbstractController
      *     "fr": "/ajouter/etape2",
      * }, name="booking_new_step2", methods={"GET","POST"})
      */
-    public function newStep2(Request $request) {
+    public function newStep2(Request $request, BookingRepository $bookingRepository, CategoryRepository $categoryRepository, EquipmentRepository $equipmentRepository) {
 
-        $equipments = $request->query->get('equipments');
+        $bId = $request->query->get('bookingId');
 
-        $booking = new Booking();
-        $form = $this->createForm(BookingType::class, $booking);
+        $booking = $bookingRepository->find($bId);
+        $form = $this->createForm(BookingTypeStep2::class, $booking, ['validation_groups' => ['equipments']]);
 
-        if ($request->isMethod('POST')) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $bookingTab = [
-                'loaningDate' => $request->request->get('booking')['loaningDate'],
-                'returnDate' => $request->request->get('booking')['returnDate'],
-                'equipmentsId' => $equipments
-            ];
+            dd('saving');
 
-            // dd($bookingTab);
+            $eqs = $request->request->get('booking_type_step2')['equipments'];
+            foreach($eqs as $eq) {
+                $currentEq = $equipmentRepository->find($eq);
+                $booking->addEquipment($currentEq);
+            };
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($booking);
+            $entityManager->flush();
 
             // redirect
-            return $this->redirectToRoute('booking_new_step3', array('bookingTab' => $bookingTab));
+            return $this->redirectToRoute('booking_new_step3', ['bookingId' => $booking->getId()]);
         }
 
-        return $this->render('booking/newStape2.html.twig', [
-            'form' => $form->createView()
+        $categories = $categoryRepository->findAll();
+
+        return $this->render('booking/new/step2.html.twig', [
+            'form' => $form->createView(),
+            'categories' => $categories
         ]);
     }
 
@@ -104,34 +112,38 @@ class BookingController extends AbstractController
      *     "fr": "/ajouter/etape3",
      * }, name="booking_new_step3", methods={"GET","POST"})
      */
-    public function newStep3(Request $request, EntityManagerInterface $em) {
+    public function newStep3(Request $request, BookingRepository $bookingRepository) {
 
-        $bookingTab = $request->query->get('bookingTab');
+        $bId = $request->query->get('bookingId');
+        $booking = $bookingRepository->find($bId);
+        $form = $this->createForm(BookingTypeStep3::class, $booking);
 
-        $booking = new Booking();
-        $form = $this->createForm(BookingType::class, $booking);
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        $equipmentRepository = $em->getRepository(Equipment::class);
-        $bookingTab['equipments'] = [];
-        $categories = [];
-        foreach($bookingTab['equipmentsId'] as $equipment) {
-            $currentEq = $equipmentRepository->find($equipment);
-            array_push($bookingTab['equipments'], $currentEq);
-            if(!in_array($currentEq->getCategory(), $categories, true)){
-                array_push($categories, $currentEq->getCategory());
-            }
-        };
+            dd('update status and save');
 
-        if ($request->isMethod('POST')) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($booking);
+            $entityManager->flush();
 
             // redirect
-            return $this->redirectToRoute('booking_save', array('bookingTab' => $bookingTab));
-        };
+            return $this->redirectToRoute('home_index');
+        }
 
-        return $this->render('booking/newStape3.html.twig', [
+        dd($booking);
+
+        $categories = [];
+        foreach($booking->getEquipments() as $eq) {
+            $category = $eq->getCategory();
+            if (!in_array($category, $categories)) {
+                array_push($categories, $category);
+            }
+        }
+
+        return $this->render('booking/new/step3.html.twig', [
             'form' => $form->createView(),
-            'booking' => $bookingTab,
-            'categories' => $categories
+            'categories' => $categories,
+            'booking' => $booking
         ]);
     }
 

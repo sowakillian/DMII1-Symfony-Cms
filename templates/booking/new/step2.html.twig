@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "booking" %}
+
+{% block title %}{% trans %}New Booking{% endtrans %}{% endblock %}
+
+{% block body %}
+<div>
+    <h1 class="d-flex justify-content-center">{% trans %}Reserve equipment{% endtrans %}</h1>
+    <h2 class="d-flex justify-content-center">{% trans %}Select equipment{% endtrans %}</h2>
+
+    <div class="d-flex justify-content-center">
+        <div class="col-10">
+            {{ include('booking/new/_formStep2.html.twig') }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+     {{ parent() }}
+     <script>
+        window.addEventListener("DOMContentLoaded", (event) => {
+            let cards = document.getElementsByClassName('category-card');
+            let options = document.getElementsByTagName('OPTION');
+            let activeCards = [];
+
+            for(let i = 0; i < cards.length; i++) {
+                let card = cards[i];
+                card.addEventListener("click", (e) => {
+                    card.classList.toggle('active');
+                    updateArray(activeCards, card.dataset.target);
+                    let optionsToDisplay = getOptions(activeCards);
+                    if(optionsToDisplay.length > 0) {
+                        hideAll(options);
+                        displayAll(optionsToDisplay);
+                    }
+                    else {
+                        displayAll(options);
+                    }
+
+                })
+            }
+
+            function updateArray(array, value) {
+                const found = array.findIndex(element => element == value);
+                if(found == -1) array.push(value);
+                else array.splice(found, 1);
+                console.log(array);
+            }
+
+            function getOptions(categoriesId) {
+                let optionsFilterd = [];
+                for(let i = 0; i < options.length; i++) {
+                    let option = options[i];
+                    if(isLikeAny(option.dataset.category, categoriesId)) optionsFilterd.push(option);
+                }
+                console.log(optionsFilterd);
+                return optionsFilterd;
+            }
+
+            function displayAll(array) {
+                for(let i = 0; i < array.length; i++) {
+                    let el = array[i];
+                    el.classList.remove('hide');
+                }
+            }
+
+            function hideAll(array) {
+                for(let i = 0; i < array.length; i++) {
+                    let el = array[i];
+                    el.classList.add('hide');
+                }
+                console.log(array);
+            }
+
+            function isLikeAny(el, array) {
+                let itIs = false;
+                for(let i = 0; i < array.length; i++) {
+                    let val = array[i];
+                    if(val == el) itIs = true;
+                }
+                return itIs;
+            }
+
+        });
+    </script>
+{% endblock %}
