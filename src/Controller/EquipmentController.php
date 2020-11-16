@@ -53,9 +53,8 @@ class EquipmentController extends AbstractController
                 $equipment->setMedia($media);
             }
 
-            dd($request);
-
-            $currentCategory = $categoryRepository->find(1);
+            $currentCategoryId = $request->request->get('equipment')['category'];
+            $currentCategory = $categoryRepository->find($currentCategoryId);
             $currentCategory->addEquipment($equipment);
 
             $entityManager = $this->getDoctrine()->getManager();
