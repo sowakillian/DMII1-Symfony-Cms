@@ -6,10 +6,10 @@
 {% block admincontent %}
     <div class="dashboard-header">
         <h1 class="dashboard-title">{% trans %}Edit equipment{% endtrans %}</h1>
-        <a class="basic-button" href="{{ path('equipement_index') }}">{% trans %}Back to list{% endtrans %}</a>
+        <a class="basic-button" href="{{ path('equipment_index') }}">{% trans %}Back to list{% endtrans %}</a>
     </div>
 
-    {{ include('equipement/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('equipment/_form.html.twig', {'button_label': 'Update'}) }}
 
-    {{ include('equipement/_delete_form.html.twig') }}
+    {{ include('equipment/_delete_form.html.twig') }}
 {% endblock %}

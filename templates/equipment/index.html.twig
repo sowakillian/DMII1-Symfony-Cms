@@ -1,5 +1,5 @@
 {% extends 'administration/base.html.twig' %}
-{% trans_default_domain "equipement" %}
+{% trans_default_domain "equipment" %}
 
 {% block title %}{% trans %}Equipments{% endtrans %}{% endblock %}
 
@@ -7,7 +7,7 @@
 
         <div class="dashboard-header">
             <h1 class="dashboard-title">{% trans %}Equipments{% endtrans %}</h1>
-            <a class="basic-button" href="{{ path('equipement_new') }}">{% trans %}Add an equipment{% endtrans %}</a>
+            <a class="basic-button" href="{{ path('equipment_new') }}">{% trans %}Add an equipment{% endtrans %}</a>
         </div>
 
     <table class="table">
@@ -20,14 +20,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for equipement in equipements %}
+        {% for equipment in equipments %}
             <tr>
-                <td>{{ equipement.state }}</td>
-                <td>{{ equipement.name }}</td>
-                <td>{{ equipement.serialNumber }}</td>
+                <td>{{ equipment.state }}</td>
+                <td>{{ equipment.name }}</td>
+                <td>{{ equipment.serialNumber }}</td>
                 <td>
-                    <a href="{{ path('equipement_show', {'id': equipement.id}) }}"><img src="{{ asset('images/icon_show.svg') }}" alt="Show"></a>
-                    <a href="{{ path('equipement_edit', {'id': equipement.id}) }}"><img src="{{ asset('images/icon_edit.svg') }}" alt="Edit"></a>
+                    <a href="{{ path('equipment_show', {'id': equipment.id}) }}"><img src="{{ asset('images/icon_show.svg') }}" alt="Show"></a>
+                    <a href="{{ path('equipment_edit', {'id': equipment.id}) }}"><img src="{{ asset('images/icon_edit.svg') }}" alt="Edit"></a>
                 </td>
             </tr>
         {% else %}
