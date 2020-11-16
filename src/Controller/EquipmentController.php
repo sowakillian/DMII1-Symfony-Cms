@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Equipment;
 use App\Entity\Media;
 use App\Form\EquipmentType;
+use App\Repository\CategoryRepository;
 use App\Service\FileUploader;
 use App\Repository\EquipmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,11 +38,10 @@ class EquipmentController extends AbstractController
      *     "fr": "/ajouter",
      * }, name="equipment_new", methods={"GET","POST"})
      */
-    public function new(Request $request, FileUploader $fileUploader): Response
+    public function new(Request $request, FileUploader $fileUploader, CategoryRepository $categoryRepository): Response
     {
         $equipment = new Equipment();
         $media = new Media();
-        $category = new Category();
         $form = $this->createForm(equipmentType::class, $equipment);
         $form->handleRequest($request);
 
@@ -53,11 +53,12 @@ class EquipmentController extends AbstractController
                 $equipment->setMedia($media);
             }
 
-            $category->setName("TestCategory");
+            $currentCategoryId = $request->request->get('equipment')['category'];
+            $currentCategory = $categoryRepository->find($currentCategoryId);
+            $currentCategory->addEquipment($equipment);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($media);
-            $entityManager->persist($category);
             $entityManager->persist($equipment);
             $entityManager->flush();
 
