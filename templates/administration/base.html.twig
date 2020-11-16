@@ -25,7 +25,7 @@
         <ul>
             <li class="{{ app.request.pathinfo == ('/administration/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('administration_index') }}">{% trans %}Home{% endtrans %}</a></li>
             <li class="{{ app.request.pathinfo == ('/administration/reservations/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('booking_index') }}">{% trans %}Bookings{% endtrans %}</a></li>
-            <li class="{{ app.request.pathinfo == ('/administration/materiel/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('equipement_index') }}">{% trans %}Equipments{% endtrans %}</a></li>
+            <li class="{{ app.request.pathinfo == ('/administration/materiel/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('equipment_index') }}">{% trans %}Equipments{% endtrans %}</a></li>
             <li class="{{ app.request.pathinfo == ('/administration/materiel/categories/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('category_index') }}">{% trans %}Categories{% endtrans %}</a></li>
             <li class="{{ app.request.pathinfo == ('/administration/utilisateurs/') ? 'sidebar-nav-item-active sidebar-nav-item' : 'sidebar-nav-item' }}"><a href="{{ path('user_index') }}">{% trans %}Users{% endtrans %}</a></li>
         </ul>

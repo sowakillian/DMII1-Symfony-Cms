@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Equipement;
+use App\Entity\Equipment;
 use App\Entity\Media;
-use App\Form\EquipementType;
+use App\Form\EquipmentType;
 use App\Service\FileUploader;
-use App\Repository\EquipementRepository;
+use App\Repository\EquipmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,15 +19,15 @@ use Symfony\Component\Routing\Annotation\Route;
  *     "fr": "/administration/materiel",
  * })
  */
-class EquipementController extends AbstractController
+class EquipmentController extends AbstractController
 {
     /**
-     * @Route("/", name="equipement_index", methods={"GET"})
+     * @Route("/", name="equipment_index", methods={"GET"})
      */
-    public function index(EquipementRepository $equipementRepository): Response
+    public function index(EquipmentRepository $equipmentRepository): Response
     {
-        return $this->render('equipement/index.html.twig', [
-            'equipements' => $equipementRepository->findAll(),
+        return $this->render('equipment/index.html.twig', [
+            'equipments' => $equipmentRepository->findAll(),
         ]);
     }
 
@@ -35,14 +35,14 @@ class EquipementController extends AbstractController
      * @Route({
      *     "en": "/add",
      *     "fr": "/ajouter",
-     * }, name="equipement_new", methods={"GET","POST"})
+     * }, name="equipment_new", methods={"GET","POST"})
      */
     public function new(Request $request, FileUploader $fileUploader): Response
     {
-        $equipement = new Equipement();
+        $equipment = new Equipment();
         $media = new Media();
         $category = new Category();
-        $form = $this->createForm(EquipementType::class, $equipement);
+        $form = $this->createForm(equipmentType::class, $equipment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,7 +50,7 @@ class EquipementController extends AbstractController
             if ($mediaFile) {
                 $media->setPath($fileUploader->upload($mediaFile));
                 $media->setTitle($form->get('name')->getData());
-                $equipement->setMedia($media);
+                $equipment->setMedia($media);
             }
 
             $category->setName("TestCategory");
@@ -58,25 +58,25 @@ class EquipementController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($media);
             $entityManager->persist($category);
-            $entityManager->persist($equipement);
+            $entityManager->persist($equipment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('equipement_index');
+            return $this->redirectToRoute('equipment_index');
         }
 
-        return $this->render('equipement/new.html.twig', [
-            'equipement' => $equipement,
+        return $this->render('equipment/new.html.twig', [
+            'equipment' => $equipment,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="equipement_show", methods={"GET"})
+     * @Route("/{id}", name="equipment_show", methods={"GET"})
      */
-    public function show(Equipement $equipement): Response
+    public function show(Equipment $equipment): Response
     {
-        return $this->render('equipement/show.html.twig', [
-            'equipement' => $equipement,
+        return $this->render('equipment/show.html.twig', [
+            'equipment' => $equipment,
         ]);
     }
 
@@ -84,36 +84,36 @@ class EquipementController extends AbstractController
      * @Route({
      *     "en": "/{id}/edit",
      *     "fr": "/{id}/modifier",
-     * }, name="equipement_edit", methods={"GET","POST"})
+     * }, name="equipment_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Equipement $equipement): Response
+    public function edit(Request $request, Equipment $equipment): Response
     {
-        $form = $this->createForm(EquipementType::class, $equipement);
+        $form = $this->createForm(EquipmentType::class, $equipment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('equipement_index');
+            return $this->redirectToRoute('equipment_index');
         }
 
-        return $this->render('equipement/edit.html.twig', [
-            'equipement' => $equipement,
+        return $this->render('equipment/edit.html.twig', [
+            'equipment' => $equipment,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="equipement_delete", methods={"DELETE"})
+     * @Route("/{id}", name="equipment_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Equipement $equipement): Response
+    public function delete(Request $request, Equipment $equipment): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$equipement->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$equipment->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($equipement);
+            $entityManager->remove($equipment);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('equipement_index');
+        return $this->redirectToRoute('equipment_index');
     }
 }

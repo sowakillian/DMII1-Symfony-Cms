@@ -27,13 +27,13 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Equipement::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Equipment::class, mappedBy="category")
      */
-    private $equipements;
+    private $equipments;
 
     public function __construct()
     {
-        $this->equipements = new ArrayCollection();
+        $this->equipments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,29 +54,29 @@ class Category
     }
 
     /**
-     * @return Collection|Equipement[]
+     * @return Collection|Equipment[]
      */
-    public function getEquipements(): Collection
+    public function getEquipments(): Collection
     {
-        return $this->equipements;
+        return $this->equipments;
     }
 
-    public function addEquipement(Equipement $equipement): self
+    public function addEquipment(Equipment $equipment): self
     {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements[] = $equipement;
-            $equipement->setCategory($this);
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments[] = $equipment;
+            $equipment->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeEquipement(Equipement $equipement): self
+    public function removeEquipment(Equipment $equipment): self
     {
-        if ($this->equipements->removeElement($equipement)) {
+        if ($this->equipments->removeElement($equipment)) {
             // set the owning side to null (unless already changed)
-            if ($equipement->getCategory() === $this) {
-                $equipement->setCategory(null);
+            if ($equipment->getCategory() === $this) {
+                $equipment->setCategory(null);
             }
         }
 

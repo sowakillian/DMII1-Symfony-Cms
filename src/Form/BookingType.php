@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Booking;
-use App\Entity\Equipement;
+use App\Entity\Equipment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -23,14 +23,14 @@ class BookingType extends AbstractType
             ])
             ->add('status')
             // ->add('user')
-            ->add('equipements', EntityType::class, [
-                'class' => Equipement::class,
+            ->add('equipments', EntityType::class, [
+                'class' => Equipment::class,
                 'multiple' => true,
-                'choice_label' => function ($equipement) {
-                    return $equipement->getName();
+                'choice_label' => function ($equipment) {
+                    return $equipment->getName();
                 },
-                'choice_attr' => function ($equipement) {
-                    return ['data-category' => $equipement->getCategory()->getId()];
+                'choice_attr' => function ($equipment) {
+                    return ['data-category' => $equipment->getCategory()->getId()];
                 }
             ])
         ;

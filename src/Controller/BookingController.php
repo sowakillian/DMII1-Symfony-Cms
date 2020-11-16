@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Booking;
 use App\Entity\Category;
-use App\Entity\Equipement;
+use App\Entity\Equipment;
 
 use App\Form\BookingType;
 
@@ -48,11 +48,11 @@ class BookingController extends AbstractController
 
         if ($request->isMethod('POST')) {
 
-            // set equipements to booking
-            $equipements = $request->request->get('booking')['equipements'];
+            // set equipments to booking
+            $equipments = $request->request->get('booking')['equipments'];
 
             // redirect
-            return $this->redirectToRoute('booking_new_step2', array('equipements' => $equipements));
+            return $this->redirectToRoute('booking_new_step2', array('equipments' => $equipments));
         }
         
         // get categories
@@ -74,7 +74,7 @@ class BookingController extends AbstractController
      */
     public function newStep2(Request $request) {
 
-        $equipements = $request->query->get('equipements');
+        $equipments = $request->query->get('equipments');
 
         $booking = new Booking();
         $form = $this->createForm(BookingType::class, $booking);
@@ -84,7 +84,7 @@ class BookingController extends AbstractController
             $bookingTab = [
                 'loaningDate' => $request->request->get('booking')['loaningDate'],
                 'returnDate' => $request->request->get('booking')['returnDate'],
-                'equipementsId' => $equipements
+                'equipmentsId' => $equipments
             ];
 
             // dd($bookingTab);
@@ -111,12 +111,12 @@ class BookingController extends AbstractController
         $booking = new Booking();
         $form = $this->createForm(BookingType::class, $booking);
 
-        $equipementRepository = $em->getRepository(Equipement::class);
-        $bookingTab['equipements'] = [];
+        $equipmentRepository = $em->getRepository(Equipment::class);
+        $bookingTab['equipments'] = [];
         $categories = [];
-        foreach($bookingTab['equipementsId'] as $equipement) {
-            $currentEq = $equipementRepository->find($equipement);
-            array_push($bookingTab['equipements'], $currentEq);
+        foreach($bookingTab['equipmentsId'] as $equipment) {
+            $currentEq = $equipmentRepository->find($equipment);
+            array_push($bookingTab['equipments'], $currentEq);
             if(!in_array($currentEq->getCategory(), $categories, true)){
                 array_push($categories, $currentEq->getCategory());
             }
@@ -148,10 +148,10 @@ class BookingController extends AbstractController
 
         $booking = new Booking();
 
-        $equipementRepository = $em->getRepository(Equipement::class);
-        foreach($bookingTab['equipementsId'] as $equipement) {
-            $currentEq = $equipementRepository->find($equipement);
-            $booking->addEquipement($currentEq);
+        $equipmentRepository = $em->getRepository(Equipment::class);
+        foreach($bookingTab['equipmentsId'] as $equipment) {
+            $currentEq = $equipmentRepository->find($equipment);
+            $booking->addEquipment($currentEq);
         };
 
         $booking->setLoaningDate($this->convertArrayTodatetime($bookingTab['loaningDate']));
