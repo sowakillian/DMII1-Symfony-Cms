@@ -1,9 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'administration/base.html.twig' %}
+{% trans_default_domain "booking" %}
 
 {% block title %}Category{% endblock %}
 
-{% block body %}
-    <h1>Category</h1>
+{% block admincontent %}
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">{% trans %}Category{% endtrans %}</h1>
+        <a class="basic-button" href="{{ path('category_index') }}">{% trans %}Back to list{% endtrans %}</a>
+    </div>
 
     <table class="table">
         <tbody>
@@ -18,9 +22,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('category_index') }}">back to list</a>
-
-    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-
-    {{ include('category/_delete_form.html.twig') }}
+    <div class="dashboard-buttons-bottom">
+        <a class="basic-button" href="{{ path('category_edit', {'id': category.id}) }}">{% trans %}Edit{% endtrans %}</a>
+        {{ include('category/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

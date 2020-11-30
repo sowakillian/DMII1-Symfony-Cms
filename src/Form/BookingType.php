@@ -21,7 +21,6 @@ class BookingType extends AbstractType
             ->add('returnDate', DateTimeType::class, [
                 'data' => new \DateTime()
             ])
-            ->add('status')
             // ->add('user')
             ->add('equipments', EntityType::class, [
                 'class' => Equipment::class,

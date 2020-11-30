@@ -5,12 +5,12 @@
 
 {% block body %}
 
-<div>
+<div class="booking-dates">
     <h1 class="d-flex justify-content-center">{% trans %}Reserve equipment{% endtrans %}</h1>
-    <h2 class="d-flex justify-content-center">{% trans %}Select dates{% endtrans %}</h2>
+    <h2 class="d-flex justify-content-center booking-dates-h2">{% trans %}Select dates{% endtrans %}</h2>
 
-    <div class="d-flex justify-content-center">
-        <div class="col-8">
+    <div>
+        <div>
             {{ include('booking/new/_formStep1.html.twig') }}
         </div>
     </div>
