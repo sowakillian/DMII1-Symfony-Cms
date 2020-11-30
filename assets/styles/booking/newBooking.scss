@@ -40,3 +40,41 @@ h2 {
         }
     }
 }
+
+.booking-dates {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &-h2 {
+        margin-bottom: 35px;
+    }
+
+    .col-form-label {
+        color: white;
+    }
+
+    #booking_type_step1_loaningDate_time_minute {
+        margin-left: 5px;
+    }
+
+    #booking_type_step1_returnDate_time_minute {
+        margin-left: 5px;
+    }
+
+    select {
+        background-color: white;
+        border-radius: 10px;
+        margin-right: 5px;
+    }
+
+    button {
+        background-color: white;
+        border-radius: 25px;
+        color: #0057A9;
+        border: none;
+        margin-top: 25px;
+    }
+}
