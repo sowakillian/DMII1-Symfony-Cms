@@ -34,6 +34,8 @@ symfony server:start
 yarn encore dev --watch
 ```
 
+/!\ Administration is opened to all the users in development mode, don't forget to create admin account before passing in production
+
 
 ## Features
 
