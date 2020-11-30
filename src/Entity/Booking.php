@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\BookingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
+ * @ApiResource
  */
 class Booking
 {
@@ -29,9 +31,6 @@ class Booking
      */
     private $returnDate;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $status;
 
     /**
@@ -41,13 +40,13 @@ class Booking
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Equipement::class, mappedBy="bookings")
+     * @ORM\ManyToMany(targetEntity=Equipment::class, mappedBy="bookings", cascade={"persist"})
      */
-    private $equipements;
+    private $equipments;
 
     public function __construct()
     {
-        $this->equipements = new ArrayCollection();
+        $this->equipments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,7 +83,7 @@ class Booking
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus($status, $context = []):self
     {
         $this->status = $status;
 
@@ -104,27 +103,29 @@ class Booking
     }
 
     /**
-     * @return Collection|Equipement[]
+     * @return Collection|Equipment[]
      */
-    public function getEquipements(): Collection
+    public function getEquipments(): Collection
     {
-        return $this->equipements;
+        return $this->equipments;
     }
 
-    public function addEquipement(Equipement $equipement): self
+    public function addEquipment(Equipment $equipment): self
     {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements[] = $equipement;
-            $equipement->addBooking($this);
+        dd("addEquipment");
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments[] = $equipment;
+            $equipment->addBooking($this);
+            dd('here');
         }
 
         return $this;
     }
 
-    public function removeEquipement(Equipement $equipement): self
+    public function removeEquipment(Equipment $equipment): self
     {
-        if ($this->equipements->removeElement($equipement)) {
-            $equipement->removeBooking($this);
+        if ($this->equipments->removeElement($equipment)) {
+            $equipment->removeBooking($this);
         }
 
         return $this;

@@ -1,0 +1,27 @@
+framework:
+  workflows:
+    booking_creating:
+      type: 'state_machine'
+      audit_trail:
+        enabled: true
+      marking_store:
+        type: 'method'
+        property: 'status'
+      supports:
+        - App\Entity\Booking
+      initial_marking: draft
+      places:
+        - draft
+        - reviewed
+        - rejected
+        - accepted
+      transitions:
+        to_review:
+          from: draft
+          to:   reviewed
+        accept:
+          from: reviewed
+          to:   accepted
+        reject:
+          from: reviewed
+          to:   rejected

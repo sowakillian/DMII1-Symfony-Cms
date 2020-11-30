@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
+ * @ApiResource
  */
 class Comment
 {
@@ -39,7 +41,7 @@ class Comment
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Equipement::class, inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity=Equipment::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipment;
@@ -97,12 +99,12 @@ class Comment
         return $this;
     }
 
-    public function getEquipment(): ?Equipement
+    public function getEquipment(): ?Equipment
     {
         return $this->equipment;
     }
 
-    public function setEquipment(?Equipement $equipment): self
+    public function setEquipment(?Equipment $equipment): self
     {
         $this->equipment = $equipment;
 

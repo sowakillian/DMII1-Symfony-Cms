@@ -1,0 +1,42 @@
+.category-card {
+    &.active {
+        background-color: lightgray;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+ul {
+    padding: 0;
+
+    li {
+        list-style: none !important;
+    }
+    
+}
+
+h1, h2 {
+    color: white;
+}
+
+h1 {
+    padding-top: 3vh;
+}
+
+h2 {
+    font-size: 15pt;
+    margin-bottom: 7vh;
+}
+
+#booking_type_step2_equipments {
+
+    height: 40vh;
+
+    option {
+        &.hide {
+            display: none;
+        }
+    }
+}

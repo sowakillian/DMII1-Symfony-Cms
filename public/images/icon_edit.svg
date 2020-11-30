@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2293fc"/>
+      <stop offset="1" stop-color="#0057a9"/>
+    </linearGradient>
+  </defs>
+  <g id="Groupe_274" data-name="Groupe 274" transform="translate(-1764 -263)">
+    <rect id="Rectangle_23" data-name="Rectangle 23" width="36" height="36" rx="10" transform="translate(1764 263)" fill="url(#linear-gradient)"/>
+    <g id="_001-edit" data-name="001-edit" transform="translate(1773 271.739)">
+      <path id="Tracé_55" data-name="Tracé 55" d="M16.312,48.495a.44.44,0,0,0-.44.44v3.908a1.322,1.322,0,0,1-1.321,1.321H2.2A1.322,1.322,0,0,1,.88,52.843V41.373A1.322,1.322,0,0,1,2.2,40.052H6.109a.44.44,0,1,0,0-.88H2.2a2.2,2.2,0,0,0-2.2,2.2V52.843a2.2,2.2,0,0,0,2.2,2.2H14.552a2.2,2.2,0,0,0,2.2-2.2V48.935A.44.44,0,0,0,16.312,48.495Zm0,0" transform="translate(0 -37.198)" fill="#fff"/>
+      <path id="Tracé_56" data-name="Tracé 56" d="M120.006.841a1.981,1.981,0,0,0-2.8,0l-7.853,7.853a.44.44,0,0,0-.113.194l-1.033,3.728a.44.44,0,0,0,.542.542l3.728-1.033a.44.44,0,0,0,.194-.113l7.853-7.853a1.983,1.983,0,0,0,0-2.8Zm-9.7,8.139,6.427-6.427,2.073,2.073-6.427,6.427Zm-.414.831,1.656,1.656-2.291.635Zm10-6.274L119.433,4,117.36,1.93l.467-.467a1.1,1.1,0,0,1,1.556,0l.517.517A1.1,1.1,0,0,1,119.9,3.536Zm0,0" transform="translate(-103.428)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

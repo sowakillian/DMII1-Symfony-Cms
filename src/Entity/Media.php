@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=MediaRepository::class)
+ * @ApiResource()
  */
 class Media
 {
@@ -30,9 +32,9 @@ class Media
     private $path;
 
     /**
-     * @ORM\OneToMany(targetEntity=Equipement::class, mappedBy="media")
+     * @ORM\OneToMany(targetEntity=Equipment::class, mappedBy="media")
      */
-    private $equipements;
+    private $equipments;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="media")
@@ -41,7 +43,7 @@ class Media
 
     public function __construct()
     {
-        $this->equipements = new ArrayCollection();
+        $this->equipments = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -75,29 +77,29 @@ class Media
     }
 
     /**
-     * @return Collection|Equipement[]
+     * @return Collection|Equipment[]
      */
-    public function getEquipements(): Collection
+    public function getEquipments(): Collection
     {
-        return $this->equipements;
+        return $this->equipments;
     }
 
-    public function addEquipement(Equipement $equipement): self
+    public function addEquipment(Equipment $equipment): self
     {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements[] = $equipement;
-            $equipement->setMedia($this);
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments[] = $equipment;
+            $equipment->setMedia($this);
         }
 
         return $this;
     }
 
-    public function removeEquipement(Equipement $equipement): self
+    public function removeEquipment(Equipment $equipment): self
     {
-        if ($this->equipements->removeElement($equipement)) {
+        if ($this->equipments->removeElement($equipment)) {
             // set the owning side to null (unless already changed)
-            if ($equipement->getMedia() === $this) {
-                $equipement->setMedia(null);
+            if ($equipment->getMedia() === $this) {
+                $equipment->setMedia(null);
             }
         }
 

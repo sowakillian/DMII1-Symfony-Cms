@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "booking" %}
+
+{% block title %}{% trans %}New Booking{% endtrans %}{% endblock %}
+
+{% block body %}
+
+<div>
+    <h1 class="d-flex justify-content-center">{% trans %}Reserve equipment{% endtrans %}</h1>
+    <h2 class="d-flex justify-content-center">{% trans %}Select dates{% endtrans %}</h2>
+
+    <div class="d-flex justify-content-center">
+        <div class="col-8">
+            {{ include('booking/_formStape2.html.twig') }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+     {{ parent() }}
+{% endblock %}

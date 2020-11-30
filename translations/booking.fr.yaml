@@ -1,11 +1,38 @@
 # Title
-Create new Booking: Créer une nouvelle réservation
+Create new booking: Créer une réservation
+Create new Booking: Créer une réservation
+Reserve equipment: Réserver du matériel
+Select equipment: Sélectionner des équipements
+Select dates: Sélectionner des dates
+New Booking: Nouvelle réservation
+Summary: Récapitulatif
+Book by: Réservé par
+Edit booking: Modifier la réservation
+Back to bookings: Retour aux réservations
 
 Bookings: Réservations
 Number: Numéro
+No bookings found: Aucunes réservations trouvées
+Equipments: Matériel
 
 # Form
 Loaning date: Date d'emprunt
+Loaning: Emprunt
 Return date: Date de retour
+Return: Retour
 Status: Status
 back to list: Retour à la liste
+Validate the equipment: Valider les équipements
+Validate the dates: Valider les dates
+Validate my booking: Valider ma réservation
+Cancel my booking: Annuler ma réservation
+
+# Filtre
+equipment available: équipements disponibles
+
+# Récap
+Category(ies): Catégorie(s)
+Equipment(s): Equipment(s)
+Date(s): Date(s)
+From: Du
+to: au

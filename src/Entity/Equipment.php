@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\EquipementRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\EquipmentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=EquipementRepository::class)
+ * @ORM\Entity(repositoryClass=EquipmentRepository::class)
+ * @ApiResource
  */
-class Equipement
+class Equipment
 {
     /**
      * @ORM\Id
@@ -40,17 +42,17 @@ class Equipement
     private $serialNumber;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="equipements")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="equipments")
      */
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Booking::class, inversedBy="equipements")
+     * @ORM\ManyToMany(targetEntity=Booking::class, inversedBy="equipments")
      */
     private $bookings;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Media::class, inversedBy="equipements")
+     * @ORM\ManyToOne(targetEntity=Media::class, inversedBy="equipments")
      */
     private $media;
 
@@ -61,7 +63,7 @@ class Equipement
 
     public function __construct()
     {
-        $this->state = 'available';
+        $this->state = 'Available';
         $this->bookings = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -141,6 +143,7 @@ class Equipement
 
     public function addBooking(Booking $booking): self
     {
+        // dd("addBooking");
         if (!$this->bookings->contains($booking)) {
             $this->bookings[] = $booking;
         }

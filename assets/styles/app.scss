@@ -1,8 +1,29 @@
 @import 'administration/administration.scss';
+@import 'administration/container.scss';
+@import 'administration/equipment.scss';
+@import 'booking/newBooking.scss';
 @import 'global/homepage.scss';
 @import 'global/login.scss';
 
 .body {
   background: transparent linear-gradient(119deg, #0057A9 0%, #2293FC 100%) 0% 0% no-repeat padding-box;
   height: 100vh;
+}
+
+.basic-button {
+  background: linear-gradient(to right, #2293FC, #0057A9);
+  color: white;
+  padding: 15px 25px;
+  border-radius:30px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 3px 15px rgba(155, 155, 155, 0.7);
+    text-decoration: underline;
+  }
 }

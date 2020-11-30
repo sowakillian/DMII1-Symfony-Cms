@@ -1,34 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'administration/base.html.twig' %}
+{% trans_default_domain "booking" %}
 
 {% block title %}Booking{% endblock %}
 
-{% block body %}
-    <h1>Booking</h1>
+{% block admincontent %}
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">{% trans %}Booking{% endtrans %}</h1>
+        <a class="basic-button" href="{{ path('booking_index') }}">back to list</a>
+    </div>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{% trans %}N°{% endtrans %}</th>
                 <td>{{ booking.id }}</td>
             </tr>
             <tr>
-                <th>LoaningDate</th>
+                <th>{% trans %}Book by{% endtrans %}</th>
+                <td>{{ booking.user.firstName }} {{ booking.user.lastName }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Loaning{% endtrans %}</th>
                 <td>{{ booking.loaningDate ? booking.loaningDate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>ReturnDate</th>
+                <th>{% trans %}Return{% endtrans %}</th>
                 <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Status</th>
+                <th>{% trans %}Status{% endtrans %}</th>
                 <td>{{ booking.status }}</td>
+            </tr>
+            <tr>
+                <th>Equipment</th>
+                <td>{% for equipment in booking.equipments %}{{ equipment.name }}{% endfor %}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('booking_index') }}">back to list</a>
-
-    <a href="{{ path('booking_edit', {'id': booking.id}) }}">edit</a>
-
+    <a class="basic-button" href="{{ path('booking_edit', {'id': booking.id}) }}">edit</a>
     {{ include('booking/_delete_form.html.twig') }}
 {% endblock %}

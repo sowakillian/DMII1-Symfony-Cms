@@ -4,38 +4,41 @@
 {% block title %}Booking index{% endblock %}
 
 {% block admincontent %}
-    <h1>{% trans %}Bookings{% endtrans %}</h1>
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">{% trans %}Bookings{% endtrans %}</h1>
+        <a class="basic-button" href="{{ path('booking_new_step1') }}">{% trans %}Create new booking{% endtrans %}</a>
+    </div>
 
     <table class="table">
         <thead>
             <tr>
-                <th>{% trans %}Number{% endtrans %}</th>
-                <th>{% trans %}Equipments{% endtrans %}</th>
-                <th>{% trans %}Loaning date{% endtrans %}</th>
-                <th>{% trans %}Return date{% endtrans %}</th>
+                <th>{% trans %}N°{% endtrans %}</th>
+                <th>{% trans %}Book by{% endtrans %}</th>
+                <th>{% trans %}Loaning{% endtrans %}</th>
+                <th>{% trans %}Return{% endtrans %}</th>
                 <th>{% trans %}Status{% endtrans %}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for booking in bookings %}
             <tr>
                 <td>#{{ booking.id }}</td>
-                <td>{{ booking.equipments }}</td>
+                <td>{{ booking.user.firstName }} {{ booking.user.lastName }}</td>
                 <td>{{ booking.loaningDate ? booking.loaningDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ booking.status }}</td>
                 <td>
-                    <a href="{{ path('booking_show', {'id': booking.id}) }}">show</a>
-                    <a href="{{ path('booking_edit', {'id': booking.id}) }}">edit</a>
+                    <a href="{{ path('booking_show', {'id': booking.id}) }}"><img src="{{ asset('images/icon_show.svg') }}" alt="Show"></a>
+                    <a href="{{ path('booking_edit', {'id': booking.id}) }}"><img src="{{ asset('images/icon_edit.svg') }}" alt="Edit"></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">{% trans %}No bookings found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('booking_new') }}">Create new</a>
 {% endblock %}
