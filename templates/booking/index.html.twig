@@ -16,7 +16,6 @@
                 <th>{% trans %}Book by{% endtrans %}</th>
                 <th>{% trans %}Loaning{% endtrans %}</th>
                 <th>{% trans %}Return{% endtrans %}</th>
-                <th>{% trans %}Status{% endtrans %}</th>
                 <th></th>
             </tr>
         </thead>
@@ -27,7 +26,6 @@
                 <td>{{ booking.user.firstName }} {{ booking.user.lastName }}</td>
                 <td>{{ booking.loaningDate ? booking.loaningDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ booking.status }}</td>
                 <td>
                     <a href="{{ path('booking_show', {'id': booking.id}) }}"><img src="{{ asset('images/icon_show.svg') }}" alt="Show"></a>
                     <a href="{{ path('booking_edit', {'id': booking.id}) }}"><img src="{{ asset('images/icon_edit.svg') }}" alt="Edit"></a>

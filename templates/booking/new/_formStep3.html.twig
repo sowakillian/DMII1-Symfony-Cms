@@ -49,9 +49,11 @@
 
 <div class="col-12">
 
-    <div class="d-flex justify-content-center mt-3">
-        <a class="basic-button" href="{{ path('booking_cancel', {'id': booking.getId()}) }}">{{ button_label|default('Cancel my booking')|trans }}</a>
-        <a class="basic-button" href="{{ path('booking_save', {'id': booking.getId()}) }}">{{ button_label|default('Validate my booking')|trans }}</a>
+    <div class="booking-recap-buttons d-flex justify-content-center mt-3">
+        <a class="basic-button booking-recap-buttons-cancel" href="{{ path('booking_cancel', {'id': booking.getId()}) }}">{{ button_label|default('Cancel my booking')|trans }}</a>
+        {% if workflow_can(booking, 'to_review') %}
+            <a class="basic-button booking-recap-buttons-confirm" href="{{ path('booking_save', {'id': booking.getId()}) }}">{{ button_label|default('Validate my booking')|trans }}</a>
+        {% endif %}
     </div>
 </div>
 

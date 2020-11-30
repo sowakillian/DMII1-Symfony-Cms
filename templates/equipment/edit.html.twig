@@ -9,7 +9,11 @@
         <a class="basic-button" href="{{ path('equipment_index') }}">{% trans %}Back to list{% endtrans %}</a>
     </div>
 
-    {{ include('equipment/_form.html.twig', {'button_label': 'Update'}) }}
 
-    {{ include('equipment/_delete_form.html.twig') }}
+        {{ include('equipment/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <div class="dashboard-buttons-bottom">
+        {{ include('equipment/_delete_form.html.twig') }}
+    </div>
+
 {% endblock %}

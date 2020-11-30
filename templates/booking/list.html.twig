@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "booking" %}
+
+{% block title %}{% trans %}Mes réservations{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 class="d-flex justify-content-center">{% trans %}Mes réservations{% endtrans %}</h1>
+
+        <table class="table booking-list">
+            <thead>
+            <tr>
+                <th>{% trans %}N°{% endtrans %}</th>
+                <th>{% trans %}Loaning{% endtrans %}</th>
+                <th>{% trans %}Return{% endtrans %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for booking in bookings %}
+                <tr>
+                    <td>#{{ booking.id }}</td>
+                    <td>{{ booking.loaningDate ? booking.loaningDate|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">{% trans %}No bookings found{% endtrans %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

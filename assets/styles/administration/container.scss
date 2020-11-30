@@ -9,6 +9,16 @@
     align-items: center;
   }
 
+  &-buttons-bottom {
+    display: flex;
+     .basic-button {
+       &:first-of-type {
+         margin-right: 15px;
+       }
+      border: none
+    }
+  }
+
   &-table {
     width: 100%;
     border-radius: 23px;
