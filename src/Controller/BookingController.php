@@ -154,12 +154,7 @@ class BookingController extends AbstractController
         $booking = $bookingRepository->find($bookingId);
 
         $this->entityManager->remove($booking);
-        $booking->setStatus('removed');
-
-        $this->entityManager->persist($booking);
         $this->entityManager->flush();
-
-        // $this->entityManager->remove($booking);
         
         return $this->redirectToRoute('home_index');
     }
