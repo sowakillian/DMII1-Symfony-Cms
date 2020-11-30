@@ -6,6 +6,7 @@ use App\Entity\Booking;
 use App\Entity\Category;
 use App\Entity\Equipment;
 
+use App\Form\BookingType;
 use App\Form\BookingTypeStep1;
 use App\Form\BookingTypeStep2;
 use App\Form\BookingTypeStep3;
@@ -15,11 +16,14 @@ use App\Repository\CategoryRepository;
 use App\Repository\EquipmentRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Exception\LogicException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Workflow\WorkflowInterface;
 
 /**
  * @Route({
@@ -30,12 +34,17 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class BookingController extends AbstractController
 {
     private $entityManager;
+    private $workflows;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    /**
+     * @var Registry
+     */
+    public function __construct(EntityManagerInterface $entityManager, Registry $workflows)
     {
         $this->entityManager = $entityManager;
-
+        $this->workflows = $workflows;
     }
+
 
     /**
      * @Route("/", name="booking_index", methods={"GET"})
@@ -60,12 +69,11 @@ class BookingController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $booking->setStatus('loading');
             $booking->setUser($this->get('security.token_storage')->getToken()->getUser());
 
             $this->entityManager->persist($booking);
             $this->entityManager->flush();
+
 
             return $this->redirectToRoute('booking_new_step2', ['id' => $booking->getId()]);
         }
@@ -88,7 +96,6 @@ class BookingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // TODO : a refaire mieux
             foreach($form->getData()->getEquipments() as $equipment) {
                 $equipment->addBooking($booking);
             }
@@ -112,7 +119,7 @@ class BookingController extends AbstractController
      *     "fr": "/ajouter/etape3/{id}",
      * }, name="booking_new_step3", methods={"GET","POST"})
      */
-    public function newStep3(Request $request, Booking $booking,BookingRepository $bookingRepository) {
+    public function newStep3(Request $request, Booking $booking, BookingRepository $bookingRepository) {
 
         // $bId = $request->query->get('bookingId');
         // $booking = $bookingRepository->find($bId);
@@ -134,11 +141,21 @@ class BookingController extends AbstractController
     /**
      * @Route({
      *     "en": "/add/save/{id}",
-     *     "fr": "/ajouter/valider/{id}",
+     *     "fr": "/ajouter/valider",
      * }, name="booking_save", methods={"GET","POST"})
      */
-    public function save(Request $request) {
-        
+    public function save(Request $request, BookingRepository $bookingRepository) {
+        $bookingId = $request->query->get('id');
+        $booking = $bookingRepository->find($bookingId);
+
+        $workflow = $this->workflows->get($booking, 'booking_creating');
+
+        try {
+            $workflow->apply($booking, 'to_review');
+        } catch (LogicException $exception) {
+            // ...
+        }
+
         return $this->redirectToRoute('home_index');
     }
 
@@ -149,7 +166,6 @@ class BookingController extends AbstractController
      * }, name="booking_cancel", methods={"GET","POST"})
      */
     public function cancel(Request $request, BookingRepository $bookingRepository) {
-
         $bookingId = $request->query->get('id');
         $booking = $bookingRepository->find($bookingId);
 

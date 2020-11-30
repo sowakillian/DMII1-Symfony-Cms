@@ -31,9 +31,6 @@ class Booking
      */
     private $returnDate;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $status;
 
     /**
@@ -86,7 +83,7 @@ class Booking
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus($status, $context = []):self
     {
         $this->status = $status;
 
