@@ -57,6 +57,43 @@ class BookingController extends AbstractController
     }
 
     /**
+     * @Route({
+     *     "en": "/add/save/{id}",
+     *     "fr": "/ajouter/valider",
+     * }, name="booking_save", methods={"GET","POST"})
+     */
+    public function save(Request $request, BookingRepository $bookingRepository) {
+        $bookingId = $request->query->get('id');
+        $booking = $bookingRepository->find($bookingId);
+
+        $workflow = $this->workflows->get($booking, 'booking_creating');
+
+        try {
+            $workflow->apply($booking, 'to_review');
+        } catch (LogicException $exception) {
+            // ...
+        }
+
+        return $this->redirectToRoute('home_index');
+    }
+
+    /**
+     * @Route({
+     *     "en": "/add/cancel",
+     *     "fr": "/ajouter/annuler",
+     * }, name="booking_cancel", methods={"GET","POST"})
+     */
+    public function cancel(Request $request, BookingRepository $bookingRepository) {
+        $bookingId = $request->query->get('id');
+        $booking = $bookingRepository->find($bookingId);
+
+        $this->entityManager->remove($booking);
+        $this->entityManager->flush();
+        
+        return $this->redirectToRoute('home_index');
+    }
+
+    /**
      * @Route("/{id}", name="booking_show", methods={"GET"})
      */
     public function show(Booking $booking): Response
