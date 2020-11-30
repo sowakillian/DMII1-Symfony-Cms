@@ -43,7 +43,7 @@ class Booking
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Equipment::class, mappedBy="bookings")
+     * @ORM\ManyToMany(targetEntity=Equipment::class, mappedBy="bookings", cascade={"persist"})
      */
     private $equipments;
 
@@ -115,9 +115,11 @@ class Booking
 
     public function addEquipment(Equipment $equipment): self
     {
+        dd("addEquipment");
         if (!$this->equipments->contains($equipment)) {
             $this->equipments[] = $equipment;
             $equipment->addBooking($this);
+            dd('here');
         }
 
         return $this;

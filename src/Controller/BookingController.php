@@ -6,9 +6,13 @@ use App\Entity\Booking;
 use App\Entity\Category;
 use App\Entity\Equipment;
 
-use App\Form\BookingType;
+use App\Form\BookingTypeStep1;
+use App\Form\BookingTypeStep2;
+use App\Form\BookingTypeStep3;
 
 use App\Repository\BookingRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\EquipmentRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +29,14 @@ use Symfony\Component\Validator\Constraints\DateTime;
  */
 class BookingController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+
+    }
+
     /**
      * @Route("/", name="booking_index", methods={"GET"})
      */
@@ -41,144 +53,115 @@ class BookingController extends AbstractController
      *     "fr": "/ajouter/etape1",
      * }, name="booking_new_step1", methods={"GET","POST"})
      */
-    public function new(Request $request, EntityManagerInterface $em): Response
+    public function new(Request $request): Response
     {
         $booking = new Booking();
-        $form = $this->createForm(BookingType::class, $booking);
+        $form = $this->createForm(BookingTypeStep1::class, $booking, ['validation_groups' => ['creation']]);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST')) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            // set equipments to booking
-            $equipments = $request->request->get('booking')['equipments'];
+            $booking->setStatus('loading');
+            $booking->setUser($this->get('security.token_storage')->getToken()->getUser());
 
-            // redirect
-            return $this->redirectToRoute('booking_new_step2', array('equipments' => $equipments));
+            $this->entityManager->persist($booking);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('booking_new_step2', ['id' => $booking->getId()]);
         }
         
-        // get categories
-        $categoryRepository = $em->getRepository(Category::class);
-        $categories = $categoryRepository->findAll();
-
-
-        return $this->render('booking/newStape1.html.twig', [
-            'categories' => $categories,
+        return $this->render('booking/new/step1.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
      * @Route({
-     *     "en": "/add/step2",
-     *     "fr": "/ajouter/etape2",
+     *     "en": "/add/step2/{id}",
+     *     "fr": "/ajouter/etape2/{id}",
      * }, name="booking_new_step2", methods={"GET","POST"})
      */
-    public function newStep2(Request $request) {
+    public function newStep2(Request $request, Booking $booking, CategoryRepository $categoryRepository, EquipmentRepository $equipmentRepository) {
 
-        $equipments = $request->query->get('equipments');
+        $form = $this->createForm(BookingTypeStep2::class, $booking);
+        $form->handleRequest($request);
 
-        $booking = new Booking();
-        $form = $this->createForm(BookingType::class, $booking);
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        if ($request->isMethod('POST')) {
-
-            $bookingTab = [
-                'loaningDate' => $request->request->get('booking')['loaningDate'],
-                'returnDate' => $request->request->get('booking')['returnDate'],
-                'equipmentsId' => $equipments
-            ];
-
-            // dd($bookingTab);
+            // TODO : a refaire mieux
+            foreach($form->getData()->getEquipments() as $equipment) {
+                $equipment->addBooking($booking);
+            }
+            $this->entityManager->flush();
 
             // redirect
-            return $this->redirectToRoute('booking_new_step3', array('bookingTab' => $bookingTab));
+            return $this->redirectToRoute('booking_new_step3', ['id' => $booking->getId()]);
         }
 
-        return $this->render('booking/newStape2.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
+        $categories = $categoryRepository->findAll();
 
-    /**
-     * @Route({
-     *     "en": "/add/step3",
-     *     "fr": "/ajouter/etape3",
-     * }, name="booking_new_step3", methods={"GET","POST"})
-     */
-    public function newStep3(Request $request, EntityManagerInterface $em) {
-
-        $bookingTab = $request->query->get('bookingTab');
-
-        $booking = new Booking();
-        $form = $this->createForm(BookingType::class, $booking);
-
-        $equipmentRepository = $em->getRepository(Equipment::class);
-        $bookingTab['equipments'] = [];
-        $categories = [];
-        foreach($bookingTab['equipmentsId'] as $equipment) {
-            $currentEq = $equipmentRepository->find($equipment);
-            array_push($bookingTab['equipments'], $currentEq);
-            if(!in_array($currentEq->getCategory(), $categories, true)){
-                array_push($categories, $currentEq->getCategory());
-            }
-        };
-
-        if ($request->isMethod('POST')) {
-
-            // redirect
-            return $this->redirectToRoute('booking_save', array('bookingTab' => $bookingTab));
-        };
-
-        return $this->render('booking/newStape3.html.twig', [
+        return $this->render('booking/new/step2.html.twig', [
             'form' => $form->createView(),
-            'booking' => $bookingTab,
             'categories' => $categories
         ]);
     }
 
     /**
      * @Route({
-     *     "en": "/add/save",
-     *     "fr": "/ajouter/valider",
+     *     "en": "/add/step3/{id}",
+     *     "fr": "/ajouter/etape3/{id}",
+     * }, name="booking_new_step3", methods={"GET","POST"})
+     */
+    public function newStep3(Request $request, Booking $booking,BookingRepository $bookingRepository) {
+
+        // $bId = $request->query->get('bookingId');
+        // $booking = $bookingRepository->find($bId);
+
+        $categories = [];
+        foreach($booking->getEquipments() as $eq) {
+            $category = $eq->getCategory();
+            if (!in_array($category, $categories)) {
+                array_push($categories, $category);
+            }
+        }
+
+        return $this->render('booking/new/step3.html.twig', [
+            'categories' => $categories,
+            'booking' => $booking
+        ]);
+    }
+
+    /**
+     * @Route({
+     *     "en": "/add/save/{id}",
+     *     "fr": "/ajouter/valider/{id}",
      * }, name="booking_save", methods={"GET","POST"})
      */
-    public function save(Request $request, EntityManagerInterface $em) {
-        $bookingTab = $request->query->get('bookingTab');
-
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $booking = new Booking();
-
-        $equipmentRepository = $em->getRepository(Equipment::class);
-        foreach($bookingTab['equipmentsId'] as $equipment) {
-            $currentEq = $equipmentRepository->find($equipment);
-            $booking->addEquipment($currentEq);
-        };
-
-        $booking->setLoaningDate($this->convertArrayTodatetime($bookingTab['loaningDate']));
-        $booking->setReturnDate($this->convertArrayTodatetime($bookingTab['returnDate']));
-
-        $booking->setUser($this->get('security.token_storage')->getToken()->getUser());
-        $booking->setStatus('waiting');
-
-        $entityManager->persist($booking);
-        $entityManager->flush();
+    public function save(Request $request) {
         
         return $this->redirectToRoute('home_index');
     }
 
-    private function convertArrayTodatetime($array) {
-        $date = $array['date'];
-        $year = $date['year'];
-        $month = $date['month'];
-        $day = $date['day'];
+    /**
+     * @Route({
+     *     "en": "/add/cancel",
+     *     "fr": "/ajouter/annuler",
+     * }, name="booking_cancel", methods={"GET","POST"})
+     */
+    public function cancel(Request $request, BookingRepository $bookingRepository) {
 
-        $time = $array['time'];
-        $hour = $time['hour'];
-        $minute = $time['minute'];
+        $bookingId = $request->query->get('id');
+        $booking = $bookingRepository->find($bookingId);
 
-        $str = $year. '-' . $month. '-' . $day. ' ' . $hour. ':' . $minute;
+        $this->entityManager->remove($booking);
+        $booking->setStatus('removed');
 
-        return \DateTime::createFromFormat("Y-m-d H:i",$str);
+        $this->entityManager->persist($booking);
+        $this->entityManager->flush();
+
+        // $this->entityManager->remove($booking);
+        
+        return $this->redirectToRoute('home_index');
     }
 
     /**

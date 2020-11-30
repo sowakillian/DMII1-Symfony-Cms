@@ -1,0 +1,10 @@
+# config/validator/validation.yaml
+# App\Entity\Booking:
+#     properties:
+#         loaningDate:
+#             - NotBlank: { groups: [creation] }
+#         returnDate:
+#             - NotBlank: { groups: [creation] }
+#         # equipments:
+#         #   - Collection:
+#         #       allowMissingFields: true

@@ -143,6 +143,7 @@ class Equipment
 
     public function addBooking(Booking $booking): self
     {
+        // dd("addBooking");
         if (!$this->bookings->contains($booking)) {
             $this->bookings[] = $booking;
         }
