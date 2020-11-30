@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Equipment;
+use App\Entity\Booking;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,6 +29,8 @@ class BookingTypeStep2 extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        // $resolver->setDefaults();
+        $resolver->setDefaults([
+            'data_class' => Booking::class
+        ]);
     }
 }

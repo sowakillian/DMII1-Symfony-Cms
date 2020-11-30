@@ -24,7 +24,7 @@
                         <h5 class="card-title">{% trans %}Equipment(s){% endtrans %}</h5>
                         <p class="card-text">
                             <ul class="list">
-                                {% for eq in booking["equipments"] %}
+                                {% for eq in booking.getEquipments() %}
                                     <li>{{ eq.name }}</li>
                                 {% endfor %}
                             </ul>
@@ -37,8 +37,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{% trans %}Date(s){% endtrans %}</h5>
                         <p class="card-text">
-                            {% trans %}From{% endtrans %} {{ booking["loaningDate"]["date"]["day"] }}/{{ booking["loaningDate"]["date"]["month"] }}/{{ booking["loaningDate"]["date"]["year"] }}<br>
-                            {% trans %}to{% endtrans %} {{ booking["returnDate"]["date"]["day"] }}/{{ booking["returnDate"]["date"]["month"] }}/{{ booking["returnDate"]["date"]["year"] }}
+                            {% trans %}From{% endtrans %} {{ booking.getLoaningDate()|date("m/d/Y") }}<br>
+                            {% trans %}to{% endtrans %} {{ booking.getReturnDate()|date("m/d/Y") }}
                         </p>
                     </div>
                 </div>
@@ -48,11 +48,11 @@
 
 
 <div class="col-12">
-    {{ form_start(form) }}
-        <div class="d-flex justify-content-center mt-3">
-            <button class="btn btn-dark" type="submit">{{ button_label|default('Validate my booking')|trans }}</button>
-        </div>
-    {{ form_end(form, {'render_rest': false}) }}
+
+    <div class="d-flex justify-content-center mt-3">
+        <a class="basic-button" href="{{ path('booking_cancel', {'id': booking.getId()}) }}">{{ button_label|default('Cancel my booking')|trans }}</a>
+        <a class="basic-button" href="{{ path('booking_save', {'id': booking.getId()}) }}">{{ button_label|default('Validate my booking')|trans }}</a>
+    </div>
 </div>
 
 </div>
